@@ -1,13 +1,16 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#define MAXCOM 1000
-#define MAXLIST 100
-#include "libft/libft.h"
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   main.c                                           .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/03/27 17:53:46 by jecombe      #+#   ##    ##    #+#       */
+/*   Updated: 2018/03/27 18:13:25 by jecombe     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void		init_shell(void)
@@ -26,9 +29,11 @@ void			env_now(t_minishell *shell, char **envv)
 	int i;
 	int j;
 	int l;
+	int g;
 	i = 0;
 	j = 0;
 	l = 0;
+	g = 0;
 	shell->env = malloc(sizeof(char *) * (200));
 	while (envv[i] != NULL)
 	{
@@ -40,10 +45,6 @@ void			env_now(t_minishell *shell, char **envv)
 	shell->env[j] = NULL;
 }
 
-void			aff_prompt(void)
-{
-	ft_putstr("$> ");
-}
 void			sigint(int sig)
 {
 	(void)sig;
@@ -56,17 +57,16 @@ int main(int argc, char **argv, char **env)
 	int ret;
 	t_minishell shell;
 
-	(void)argv;
 	(void)argc;
 	init_shell();
 	env_now(&shell, env);
 	path(&shell, env);
-	/*while (1)
+	while (1)
 	{
 		signal(SIGINT, sigint);
-		aff_prompt();
+		aff_prompt(argv, &shell);
 
-	}*/
+	}
 	return (0);
 }
 

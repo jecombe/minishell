@@ -13,7 +13,8 @@ LIB_DIR = ./libft/
 LIB = libft.a
 
 FILES = main.c \
-		path.c
+		path.c \
+		prompt.c
 
 END=\x1b[0m
 BOLD=\x1b[1m
@@ -123,4 +124,5 @@ fclean: clean
 	@/bin/rm -f $(NAME)
 	@echo "\033[1;31m$(LIB) ==> DELETED"
 	@echo "\033[1;31m$(NAME) ==> DELETED"
-	re: fclean all
+
+re: fclean all

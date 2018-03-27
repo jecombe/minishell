@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   minishell.h                                      .::    .:/ .      .::   */
+/*   prompt.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/26 18:12:05 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/27 18:01:50 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/03/27 17:53:36 by jecombe      #+#   ##    ##    #+#       */
+/*   Updated: 2018/03/27 18:10:18 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
-#ifndef MINISHELL_H
-#define MINISHELL_H
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#define READ_SIZE 4096
-#include "libft/libft.h"
 
-typedef struct s_minishell
+#include "minishell.h"
+
+void		aff_prompt(char **argv, t_minishell *shell)
 {
-	char **tab;
-	char **cmd;
-	char **env;
-}			t_minishell;
+	char *cmd;
+	char *buff;
+	int ret;
+	(void)shell;
+	(void)argv;
 
-void		path(t_minishell *shell, char **env);
-void		aff_prompt(char **argv, t_minishell *shell);
+	cmd = (char *)malloc(sizeof(char) * (READ_SIZE));
+	buff = (char *)malloc(sizeof(char) * (READ_SIZE));
+	ft_putstr("$> ");
+	if ((ret = (read(0, buff, READ_SIZE))) != -1)
+	{
+		if (ret == 0)
+		{
+			ft_putchar('\n');
+			exit(0);
+		}
+	}
 
-#endif
+}
