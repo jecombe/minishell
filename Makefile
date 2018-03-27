@@ -12,7 +12,8 @@ LIB_DIR = ./libft/
 
 LIB = libft.a
 
-FILES = main.c
+FILES = main.c \
+		path.c
 
 END=\x1b[0m
 BOLD=\x1b[1m

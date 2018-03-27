@@ -9,14 +9,7 @@
 #define MAXLIST 100
 #include "libft/libft.h"
 #include "minishell.h"
-#include <readline/readline.h>
-#include <readline/history.h>
 
-void		printDir(void)
-{
-	char	cwd[1024];
-	getcwd(cwd, sizeof(cwd));
-}
 void		init_shell(void)
 {
 	ft_putendl("---------------------------------");
@@ -32,8 +25,10 @@ void			env_now(t_minishell *shell, char **envv)
 {
 	int i;
 	int j;
+	int l;
 	i = 0;
 	j = 0;
+	l = 0;
 	shell->env = malloc(sizeof(char *) * (200));
 	while (envv[i] != NULL)
 	{
@@ -45,16 +40,33 @@ void			env_now(t_minishell *shell, char **envv)
 	shell->env[j] = NULL;
 }
 
+void			aff_prompt(void)
+{
+	ft_putstr("$> ");
+}
+void			sigint(int sig)
+{
+	(void)sig;
+	ft_putchar('\n');
+	ft_putstr("$> ");
+}
+
 int main(int argc, char **argv, char **env)
 {
 	int ret;
 	t_minishell shell;
+
+	(void)argv;
+	(void)argc;
 	init_shell();
 	env_now(&shell, env);
-	while (1)
+	path(&shell, env);
+	/*while (1)
 	{
-		printDir();
+		signal(SIGINT, sigint);
+		aff_prompt();
 
-	}
+	}*/
+	return (0);
 }
 
