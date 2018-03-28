@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/27 18:13:25 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/28 15:13:19 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,7 +65,6 @@ int main(int argc, char **argv, char **env)
 	{
 		signal(SIGINT, sigint);
 		aff_prompt(argv, &shell);
-
 	}
 	return (0);
 }

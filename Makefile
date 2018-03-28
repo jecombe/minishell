@@ -1,6 +1,6 @@
 .PHONY: all re clean fclean
 
-NAME = ft_ls
+NAME = minishell
 
 CC = gcc
 
@@ -14,7 +14,8 @@ LIB = libft.a
 
 FILES = main.c \
 		path.c \
-		prompt.c
+		prompt.c \
+		builtin.c
 
 END=\x1b[0m
 BOLD=\x1b[1m
