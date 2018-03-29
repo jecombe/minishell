@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:36 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/28 16:55:48 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/29 18:36:09 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,7 +42,6 @@ char		*ft_epure(char *str)
 			j++;
 			if (str[i + 1] ==  ' ' || str[i + 1] == '\t')
 			{
-				printf("ok\n");
 				str[j] = ' ';
 				j++;
 			}
@@ -59,28 +58,35 @@ void		aff_prompt(char **argv, t_minishell *shell)
 	char *cmd;
 	char *buff;
 	int ret;
+	int i = 0;
 	(void)shell;
 	(void)argv;
 
 	cmd = (char *)malloc(sizeof(char) * (READ_SIZE));
 	buff = (char *)malloc(sizeof(char) * (READ_SIZE));
-	ft_putstr("$> ");
+	ft_putstr("🤠 $> ");
 	if ((ret = (read(0, buff, READ_SIZE))) != -1)
 	{
-		printf("----%s\n", buff);
 		if (ret == 0)
 		{
 			ft_putchar('\n');
 			exit(0);
 		}
-		printf("-----> %s\n", cmd);
 		if (ft_check_space(buff) == 0)
 			return;
 		cmd = ft_epure(buff);
-		printf("***********> %s\n", cmd);
-		/*if (ft_builtin(cmd, shell) == 1)
+		shell->cmd = ft_str_cmd(cmd, shell);
+		while (shell->env[i]!= NULL)
+		{
+			printf("=============> %s\n", shell->env[i]);
+			i++;
+		}
+		if (ft_builtin(cmd, shell) == 1)
+		{
 		printf("-----> %s\n", cmd);
-		return;*/
+		return;
+		}
+		ft_fork(shell);
 	}
 
 }

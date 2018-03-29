@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/28 15:13:19 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/29 17:33:05 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,13 +15,25 @@
 
 void		init_shell(void)
 {
-	ft_putendl("---------------------------------");
-	ft_putendl("|	MINISHELL		|");
-	ft_putendl("|				|");
-	ft_putendl("|				|");
-	ft_putendl("|				|");
-	ft_putendl("|				|");
-	ft_putendl("---------------------------------");
+	ft_putstr_color("---------------------------------", 1);
+	ft_putstr("\033[0m");
+	ft_putstr("\n");
+	ft_putstr_color("|	MINISHELL		|", 0);
+	ft_putstr("\n");
+	ft_putstr_color("|	Jecombe			|", 0);
+	ft_putstr("\n");
+	ft_putstr_color("|				|", 0);
+	ft_putstr("\n");
+	ft_putstr_color("|				|", 0);
+	ft_putstr("\n");
+	ft_putstr_color("|				|", 0);
+	ft_putstr("\033[0m");
+	ft_putstr("\n");
+
+
+	ft_putstr_color("---------------------------------", 1);
+	ft_putstr("\033[0m");
+	ft_putstr("\n");
 }
 
 void			env_now(t_minishell *shell, char **envv)
@@ -49,7 +61,7 @@ void			sigint(int sig)
 {
 	(void)sig;
 	ft_putchar('\n');
-	ft_putstr("$> ");
+	ft_putstr("🤠 $> ");
 }
 
 int main(int argc, char **argv, char **env)

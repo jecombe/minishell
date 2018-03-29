@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 14:41:54 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/27 17:36:23 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/29 17:38:10 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ int			ft_check_path(char **env)
 
 }
 
-int			ft_count(char *str)
+int			ft_count(char *str, int value)
 {
 	int i;
 	int co;
@@ -46,13 +46,15 @@ int			ft_count(char *str)
 	i = 0;
 	while (str[i] && str[i] != '\n')
 	{
-		if (str[i] == ':' && str[i + 1] != '\0')
-			co++;
+		if (value == 0)
+			if (str[i] == ':' && str[i + 1] != '\0')
+				co++;
+		if (value == 1)
+			if (str[i] == ' ' && str[i + 1] != '\0')
+				co++;
 		i++;
 	}
 	return (co);
-
-
 }
 
 int			ft_count_char(char *str)
@@ -79,7 +81,7 @@ void		in_tab(t_minishell *shell, char *env)
 	a = 0;
 	b =  0;
 	l = 0;
-	co_word = ft_count(env);
+	co_word = ft_count(env, 0);
 	shell->tab = (char **)malloc(sizeof(char *) * (co_word) + 1);
 	while (env[i] && env[i] != '\n')
 	{
@@ -127,7 +129,5 @@ void		path(t_minishell *shell, char **env)
 		}
 
 	}
-	i = 0;
-
 }
 

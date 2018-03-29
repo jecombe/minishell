@@ -15,7 +15,8 @@ LIB = libft.a
 FILES = main.c \
 		path.c \
 		prompt.c \
-		builtin.c
+		builtin.c \
+		tools.c
 
 END=\x1b[0m
 BOLD=\x1b[1m
