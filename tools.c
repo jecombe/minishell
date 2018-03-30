@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 12:57:55 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 16:46:26 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/30 15:21:34 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ char		**ft_str_cmd(char *cmd, t_minishell *shell)
 	a = 0;
 	b =  0;
 	co_word = ft_count(cmd, 1);
-	shell->cmd = (char **)malloc(sizeof(char *) * (co_word) + 1);
+	shell->cmd = malloc(sizeof(char *) * (co_word) + 1);
 	while (cmd[i] && cmd[i] != '\n')
 	{
 		if (cmd[i] == ' ' || cmd[i] == '\n')

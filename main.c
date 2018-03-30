@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 17:33:05 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/30 14:22:30 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,13 +40,18 @@ void			env_now(t_minishell *shell, char **envv)
 {
 	int i;
 	int j;
-	int l;
-	int g;
+	int result = 0;
+	int co = 0;
 	i = 0;
 	j = 0;
-	l = 0;
-	g = 0;
-	shell->env = malloc(sizeof(char *) * (200));
+	while (envv[i])
+	{
+		co = ft_strlen(envv[i]);
+		result = result + co ;
+		i++;
+	}
+	i = 0;
+	shell->env = malloc(sizeof(char *) * result);
 	while (envv[i] != NULL)
 	{
 		shell->env[j] = malloc(sizeof(char) * ft_strlen(envv[i]) + 1);
@@ -64,19 +69,53 @@ void			sigint(int sig)
 	ft_putstr("🤠 $> ");
 }
 
+char		*split_path(t_minishell *shell)
+{
+	int i;
+	int o;
+	o = 0;
+	int j;
+	j=  0;
+	i = 5;
+	while (shell->tab[0][i] != '\0')
+	{
+		shell->tab[0][j] = shell->tab[0][i];
+		j++;
+		i++;
+	}
+	shell->tab[0][j] = '/';
+	shell->tab[0][j + 1] = '\0';
+	return (shell->tab[0]);
+
+
+}
+
 int main(int argc, char **argv, char **env)
 {
 	int ret;
 	t_minishell shell;
+	int i;
+	int o;
 
-	(void)argc;
+	i = 0;
+	o = 1;
+
 	init_shell();
+	(void)argc;
+	(void)argv;
 	env_now(&shell, env);
-	path(&shell, env);
+	shell.tab = path(&shell, env);
+	shell.tab[0] = split_path(&shell);
+	while (shell.tab[o])
+	{
+		if (ft_strcmp(shell.tab[o], "\n"))
+			ft_strcat(shell.tab[o], "/");
+		o++;
+	}
 	while (1)
 	{
 		signal(SIGINT, sigint);
-		aff_prompt(argv, &shell);
+		aff_prompt(&shell);
 	}
 	return (0);
 }

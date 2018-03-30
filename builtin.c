@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 18:35:41 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/29 18:38:24 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,6 +54,7 @@ void		ft_cd(char *str, char **env)
 		if (chdir(str) == -1)
 			ft_putendl("No such file or directory");
 	}
+	printf("free\n");
 	free(home);
 }
 int			ft_builtin(char *cmd, t_minishell *shell)
@@ -63,7 +64,7 @@ int			ft_builtin(char *cmd, t_minishell *shell)
 	else if (ft_strcmp("cd", shell->cmd[0]) == 0)
 	{
 		ft_cd(shell->cmd[1], shell->env);
-		return(1);
+		return (1);
 	}
 	else
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:36 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 18:36:09 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/30 14:08:35 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,14 +53,13 @@ char		*ft_epure(char *str)
 	return (str);
 }
 
-void		aff_prompt(char **argv, t_minishell *shell)
+void		aff_prompt(t_minishell *shell)
 {
 	char *cmd;
 	char *buff;
 	int ret;
 	int i = 0;
 	(void)shell;
-	(void)argv;
 
 	cmd = (char *)malloc(sizeof(char) * (READ_SIZE));
 	buff = (char *)malloc(sizeof(char) * (READ_SIZE));
@@ -78,12 +77,10 @@ void		aff_prompt(char **argv, t_minishell *shell)
 		shell->cmd = ft_str_cmd(cmd, shell);
 		while (shell->env[i]!= NULL)
 		{
-			printf("=============> %s\n", shell->env[i]);
 			i++;
 		}
 		if (ft_builtin(cmd, shell) == 1)
 		{
-		printf("-----> %s\n", cmd);
 		return;
 		}
 		ft_fork(shell);

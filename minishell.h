@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/26 18:12:05 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 16:46:16 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/30 15:21:24 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,16 +21,17 @@
 #include <sys/wait.h>
 #define READ_SIZE 4096
 #include "libft/libft.h"
+#include <limits.h>
 
 typedef struct s_minishell
 {
 	char **tab;
 	char **cmd;
-	char **env;
+	char *const env[];
 }			t_minishell;
 
-void		path(t_minishell *shell, char **env);
-void		aff_prompt(char **argv, t_minishell *shell);
+char		**path(t_minishell *shell, char **env);
+void		aff_prompt(t_minishell *shell);
 int		ft_builtin(char *cmd, t_minishell *shell);
 char		**ft_str_cmd(char *cmd, t_minishell *shell);
 int			ft_count(char *str, int value);
