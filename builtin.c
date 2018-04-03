@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/03 17:41:52 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/03 18:46:30 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -165,6 +165,14 @@ int		ft_inspect_echo(char *str)
 	i = 0;
 	while (str[i])
 	{
+		printf("Llllllllllllllllll %c\n", str[i]);
+			i++;
+	}
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ' ')
+			ft_putstr(str);
 		if (ft_strchr(str, '"'))
 		{
 			test = ft_strsplit(str, '"');
@@ -190,6 +198,7 @@ int			ft_builtin(char *cmd, t_minishell *shell)
 	{
 		while (shell->cmd[o])
 		{
+		printf("oooo %s\n", shell->cmd[o]);
 			ok = 1;
 			if (ft_inspect_echo(shell->cmd[o]) == 1)
 				ft_putstr(" ");

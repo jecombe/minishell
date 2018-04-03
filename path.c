@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 14:41:54 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/30 14:01:56 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/03 18:06:20 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,10 +29,7 @@ int			ft_check_path(char **env)
 		i++;
 	}
 	if (ok == 0)
-	{
 		ft_putendl("PATH is not set");
-		exit(0);
-	}
 	return (ok);
 
 }
