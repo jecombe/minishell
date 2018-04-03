@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/26 18:12:05 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/30 15:22:43 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/03 16:22:55 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,5 +39,6 @@ int			ft_count_char(char *str);
 void			sigint(int sig);
 void		ft_fork(t_minishell *shell);
 void		ft_putstr_color(const char *str, int nb);
+char		*split_path(t_minishell *shell);
 
 #endif

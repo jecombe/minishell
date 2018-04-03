@@ -83,6 +83,7 @@ char		**path(t_minishell *shell, char **env)
 		{
 			if ((compare = (ft_strncmp("PATH=", shell->env[i], 5) == 0)))
 			{
+				printf("=====> %s\n", shell->env[i]);
 				return (ft_strsplit(shell->env[i], ':'));
 			}
 			i++;
