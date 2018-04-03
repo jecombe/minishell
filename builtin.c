@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/03 16:30:11 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/03 17:41:52 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -155,14 +155,52 @@ void		ft_unset_env(char **env, t_minishell *shell)
 	ft_putstr(shell->cmd[1]);
 	ft_putendl(": name doesnt't match !");
 }
+int		ft_inspect_echo(char *str)
+{
+	int i;
+	int j;
 
+	j = 0;
+	char **test;
+	i = 0;
+	while (str[i])
+	{
+		if (ft_strchr(str, '"'))
+		{
+			test = ft_strsplit(str, '"');
+			ft_putstr(test[i]);
+		return(1);
+		}
+		i++;
+	}
+	return (0);
+}
 int			ft_builtin(char *cmd, t_minishell *shell)
 {
+	int o =1;
+	int ok = 0;
 	if (ft_strcmp("exit\n", cmd) == 0)
 		exit(0);
 	else if (ft_strcmp("cd", shell->cmd[0]) == 0)
 	{
 		ft_cd(shell->cmd[1], shell->env);
+		return (1);
+	}
+	else if (ft_strcmp("echo", shell->cmd[0]) == 0)
+	{
+		while (shell->cmd[o])
+		{
+			ok = 1;
+			if (ft_inspect_echo(shell->cmd[o]) == 1)
+				ft_putstr(" ");
+			else
+			{
+				ft_putstr(shell->cmd[o]);
+				ft_putstr(" ");
+			}
+			o++;
+		}
+		ft_putstr("\n");
 		return (1);
 	}
 	else if (ft_strcmp("setenv", shell->cmd[0]) == 0)
