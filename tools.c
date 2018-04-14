@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 12:57:55 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/12 16:32:35 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/14 19:06:39 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,8 +73,11 @@ void		ft_fork(t_minishell *shell)
 			o = execve(file, shell->cmd, shell->env);
 			i++;
 		}
-		ft_putstr(shell->cmd[0]);
-		ft_putendl(": Command not found !");
+		ft_putstr_color(shell->cmd[0], 0);
+		ft_putstr("\033[0m");
+		ft_putstr_color(": Command not found !", 1);
+		ft_putstr("\033[0m");
+		ft_putstr("\n");
 		exit(EXIT_FAILURE);
 	}
 	else
