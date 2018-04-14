@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/03 14:47:37 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/12 17:17:40 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -108,17 +108,12 @@ int main(int argc, char **argv, char **env)
 	shell.tab[0] = split_path(&shell);
 	while (shell.tab[o])
 	{
+		printf("******> %s\n", shell.tab[o]);
 		if (ft_strcmp(shell.tab[o], "\n"))
 			ft_strcat(shell.tab[o], "/");
 		o++;
 	}
 	o = 0;
-	while (shell.tab[o])
-	{
-		printf("-------->>> %s\n", shell.tab[o]);
-		o++;
-	}
-
 	while (1)
 	{
 		signal(SIGINT, sigint);

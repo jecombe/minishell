@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 12:57:55 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/30 15:21:34 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/12 16:32:35 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,16 +33,21 @@ char		**ft_str_cmd(char *cmd, t_minishell *shell)
 		{
 			while (cmd[i] == ' ')
 				i++;
-			a++;
+			if (cmd[i + 1] != ' ')
+				a++;
 			b = 0;
 		}
 		co_char = ft_count_char(cmd + i);
 		shell->cmd[a] = (char *)malloc(sizeof(char) * (co_char) + 1);
 		while (cmd[i] != ' ' && cmd[i] != '\n' && cmd[i] != '\0')
-			shell->cmd[a][b++] = cmd[i++];
+		{
+				shell->cmd[a][b++] = cmd[i++];
+		}
 		shell->cmd[a][b] = '\0';
 	}
-	shell->cmd[a + 1] = NULL;
+	
+		shell->cmd[a + 1] = NULL;
+
 	return (shell->cmd);
 }
 
@@ -53,6 +58,7 @@ void		ft_fork(t_minishell *shell)
 	int i;
 	int status;
 	int o;
+		ft_putendl("FT FORK");
 
 	i  = 0;
 	pid_child = fork();
@@ -69,7 +75,7 @@ void		ft_fork(t_minishell *shell)
 		}
 		ft_putstr(shell->cmd[0]);
 		ft_putendl(": Command not found !");
-		exit(0);
+		exit(EXIT_FAILURE);
 	}
 	else
 		wait(&status);

@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/03 18:46:30 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/14 16:11:07 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,6 @@ char		*ft_home(char **env)
 			b = 0;
 			while (env[i][a] != '\0')
 				result[b++] = env[i][a++];
-			printf("OOOOOOOO %s\n", result);
 		}
 		i++;
 	}
@@ -54,7 +53,6 @@ void		ft_cd(char *str, char **env)
 		if (chdir(str) == -1)
 			ft_putendl("No such file or directory");
 	}
-	printf("free\n");
 	free(home);
 }
 
@@ -165,23 +163,36 @@ int		ft_inspect_echo(char *str)
 	i = 0;
 	while (str[i])
 	{
-		printf("Llllllllllllllllll %c\n", str[i]);
-			i++;
-	}
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ' ')
-			ft_putstr(str);
-		if (ft_strchr(str, '"'))
-		{
-			test = ft_strsplit(str, '"');
-			ft_putstr(test[i]);
-		return(1);
-		}
+		if (str[i] == '\0')
+			break;
+		ft_putstr(str);
 		i++;
 	}
 	return (0);
+}
+void		cmd_exec(char *exec, char **input, char **env)
+{
+	pid_t pid;
+	pid = fork();
+	if (pid > 0)
+	wait(0);
+	else
+	execve(exec, input, env);
+}
+void		ft_direct(char **cmd, char **env, t_minishell *shell, char *buff)
+{
+	(void)cmd;
+	(void)env;
+	(void)shell;
+	(void)buff;
+	int y = 0;
+	int i = 0;
+	int o = 0;
+	if (access(cmd[0], F_OK) == 0)
+	cmd_exec(cmd[0], cmd, env);
+	else
+	printf("erreur\n");
+
 }
 int			ft_builtin(char *cmd, t_minishell *shell)
 {
@@ -189,6 +200,19 @@ int			ft_builtin(char *cmd, t_minishell *shell)
 	int ok = 0;
 	if (ft_strcmp("exit\n", cmd) == 0)
 		exit(0);
+	/*if (ft_strcmp(cmd, "/") == 0)
+	{
+	printf("ok outin\n");
+	ft_direct(cmd, shell->env, shell);
+	return (1);
+	}*/	
+	else if (g_p == 1)
+	{
+		ft_direct(shell->cmd, shell->env, shell, cmd);
+		g_p = 0;
+		return (1);
+	}
+
 	else if (ft_strcmp("cd", shell->cmd[0]) == 0)
 	{
 		ft_cd(shell->cmd[1], shell->env);
@@ -198,10 +222,11 @@ int			ft_builtin(char *cmd, t_minishell *shell)
 	{
 		while (shell->cmd[o])
 		{
-		printf("oooo %s\n", shell->cmd[o]);
 			ok = 1;
-			if (ft_inspect_echo(shell->cmd[o]) == 1)
-				ft_putstr(" ");
+			if (g_a == 1)
+			{
+				ft_putstr(shell->cmd[o]);
+			}
 			else
 			{
 				ft_putstr(shell->cmd[o]);
@@ -210,24 +235,17 @@ int			ft_builtin(char *cmd, t_minishell *shell)
 			o++;
 		}
 		ft_putstr("\n");
+		g_a = 0;
 		return (1);
 	}
 	else if (ft_strcmp("setenv", shell->cmd[0]) == 0)
 	{
-		printf("sentenv\n");
 		ft_set_env(shell->cmd, shell);
 		return (1);
 	}
 	else if (ft_strcmp("unsetenv", shell->cmd[0]) == 0)
 	{
-		int j = 0;
-		while (shell->env[j])
-		{
-			printf("/////////> %s\n", shell->env[j]);
-			j++;
-		}
 		ft_unset_env(shell->cmd, shell);
-		printf("unsetenv\n");
 		return (1);
 	}
 	else
