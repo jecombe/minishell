@@ -5,21 +5,8 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/04/14 14:10:52 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/14 16:34:08 by jecombe     ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   prompt.c                                         .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:36 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/14 14:09:46 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/19 19:13:14 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,81 +80,33 @@ int			ft_check_slahsn(char *str)
 	}
 	return (i);
 }
-char		*ft_epure_echo(char *str)
+char		*ft_epure_echo2(char *str)
 {
 	int i;
 	int ok;
-	int j;
-	int k = 0;
-
-	if (!str)
-		return(0);
-	i = 0;
-	j = 0;
+	int ok2;
+	ok2 = 0;
+	char	*result;
+	int j  = 0;
 	ok = 0;
+	i = 0;
 	if (str[i] == ' ')
-		while(str[i] == ' ')
+		while (str[i] == ' ')
 			i++;
-	k = i;
 	while (str[i])
 	{
-		str[j]  = str[i];
-		if (str[i] == ' ')
-		{
-			i = i + 1;
-			while (str[i] == ' ')
-			{
+		if (str[i] == '"')
+			ok++;
+		if (str[i] == ' ' && ft_is_prime(ok) == 1)
+			while (str[i + 1] == ' ')
 				i++;
-			}
-			if (str[i + 1] == ' ')
-			{
-				str[j] = str[i + 1];
-			}
-			j++;
-			str[j] = str[i];
-			j++;
-			i++;
-			while (str[i] != '\n')
-			{
-				if (str[i] == 34 && str[i + 1] == ' ')
-				{
-					/*printf("mais sa passe la\n");
-					int test = ft_check_slahsn(str + i + 1);
-					if (test > 0)
-					{
-					printf("ppppppppp %c\n", str[i]);
-						str[i + 1] = str[i];
-					printf("ppppppppp %c\n", str[i + 1]);
-					}*/
-					int test = ft_check_slahsn(str + i  + 1);
-					if (test > 0)
-					{
-						str[i + 1] = str[i];
-					}
-					str[j] = str[i];
-					j++;
-					str[j] = ' ';
-					j = j + 1;
-					i++;
-					while (str[i] != '"')
-						i++;
-					str[j] = str[i];
-				}
-				str[j] = str[i];
-				i++;
-				j++;
-			}
-			str[j] = '\0';
-			j = 0;
-			//while (str[j])
-			return (str);
-		}
-		i++;
+		str[j] = str[i];
 		j++;
+		i++;
 	}
-	//printf("EPUR %s\n", str);
 	str[j] = '\0';
 	return (str);
+
 }
 
 int			ft_count2(char *cmd)
@@ -192,39 +131,7 @@ char			**ft_str_cmd_spec(char *cmd, t_minishell *shell)
 	int i= 0;
 	int b = 0;
 	(void)shell;
-	//count = ft_count2(cmd);
-	/*printf("TT %d\n", count);
-	  shell->cmd = malloc(sizeof(char *) * (count) + 1);
-	  printf("PUTIN\n");
-	  while (cmd[b + 1] != '\n')
-	  {
-	  shell->cmd[0][b] = cmd[b];
-	  b++;
-	  }
-	  shell->cmd[0][b] = '\0';
-	  printf("****> %s\n", shell->cmd[0]);
-	  return (shell->cmd);
-	  }*/
-	//count  = ft_count2(cmd);
 	return (ft_strsplit(cmd, '"'));
-	}
-int g_p;
-char			*ft_check_before(char *cmd)
-{
-	int i = 0;
-	while (cmd[i] != '"')
-	{
-		i++;
-	}
-	if (cmd[i - 1] != ' ' && cmd[i] == '"' && cmd[i + 1] != '"')
-	{
-		g_p = 1;
-	}
-	else if (cmd[i - 1] != ' ' && cmd[i] == '"' && cmd[i + 1] == '"')
-	{
-		g_p = 2;
-	}
-	return (cmd);
 }
 
 int			ft_check_quote(char *buff)
@@ -242,10 +149,54 @@ int			ft_check_quote(char *buff)
 	}
 	return (co);
 }
-
-int			ft_is_prime(int nb)
+char		*ft_ajout_quote(char *str)
 {
-	return ((nb % 2 == 0) ? 1 : 0);
+	int i = 0;
+	int ok = 0;
+	int j = 0;
+	int ok2 = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+			ok++;
+		if (str[i] == ' ' && ft_is_prime(ok) == 1)
+		{
+			ok2++;
+			if (str[i + 1] != '"')
+			{
+				if (ok2 == 1)
+				{
+					str[i] = ' ';
+					i++;
+				}
+				str[i] = '"';
+				i++;
+			}
+		}
+		i++;
+	}
+	str[i] = '"';
+	str[i + 1] = '\0';
+	return(str);
+
+}
+
+char			*delete(char **cmd)
+{
+	int u;
+	int i;
+
+	u = 0;
+	i = 0;
+	while (cmd[0][u] != ' ')
+	{
+		cmd[0][i] = cmd[0][u];
+		u++;
+		i++;
+	}
+	cmd[0][i] = '\0';
+	return(cmd[0]);
+
 
 }
 void		aff_prompt(t_minishell *shell)
@@ -253,37 +204,51 @@ void		aff_prompt(t_minishell *shell)
 	char *cmd;
 	char *buff;
 	int ret;
-	int ok = 0;
 	int u = 0;
 	int i = 0;
-	int y = 0;
 	int t = 0;
-	(void)shell;
+	int e = 0;
+	int co;
+	int prime;
 
-	cmd = (char *)malloc(sizeof(char) * (READ_SIZE));
+	cmd = (char *)malloc(sizeof(char) * (4096));
 	buff = (char *)malloc(sizeof(char) * (4096));
-	ft_putstr("🤠 $> ");
-if ((ret = (read(0, buff, READ_SIZE))) != -1)
+	ft_putstr_color("[", 10);
+	ft_putstr(STOP);
+	ft_putstr_color(user, 14);
+	ft_putstr(STOP);
+	ft_putstr_color("]", 10);
+	ft_putstr(STOP);
+	ft_putstr_color("==> ", 9);
+	ft_putstr(STOP);
+	if ((ret = (read(0, buff, READ_SIZE))) != -1)
 	{
+		/*if (ft_strchr(buff, ';'))
+		{
+			printf("yes %s\n", buff);
+			shell->test = ft_strsplit(buff, ';');
+			int rr;
+			rr = 0;
+			while (shell->test[rr])
+			{
+				printf("--> %s\n", shell->test[rr]);
+				rr++;
+			}
+		}*/
 		if (buff[0] == '/')
 		{
-		g_p = 1;
-			ok = 1;
-		cmd = ft_epure(buff);
+			g_p = 1;
+			cmd = ft_epure(buff);
 			while (cmd[t] != '\0')
 			{
 				if (cmd[t] == ' ' && cmd[t + 1] == '\n')
-				{
 					cmd[t] = '\n';
-				}
-			t++;
+				t++;
 			}
 			shell->cmd = ft_str_cmd(cmd, shell);
-			t = 0;
-		ft_builtin(cmd, shell);
+			ft_builtin(cmd, shell);
 			return;
 		}
-
 		if (ret == 0)
 		{
 			ft_putchar('\n');
@@ -291,93 +256,58 @@ if ((ret = (read(0, buff, READ_SIZE))) != -1)
 		}
 		if (ft_check_space(buff) == 0)
 			return;
-	
-		int co = ft_check_quote(buff);
-		int test = ft_is_prime(co);
-		if (ft_is_prime(co) != 1)
-			return;
-		if (co > 1 && ft_is_prime(co) == 1)
-		{
-			g_a++;
-			ft_check_quote(buff);
-			cmd = ft_epure_echo(buff);
-			cmd = ft_check_before(cmd);
-			shell->cmd = ft_str_cmd_spec(cmd, shell);
-			int e = 0;
-			while (shell->cmd[e])
-			{
-				if (shell->cmd[e + 1] == NULL)
-					//shell->cmd[e + 1] = shell->cmd[e];
-				//printf("--------------------> %s\n", shell->cmd[e - 1]);
-				if (shell->cmd[e][0] == ' ')
-				{
-					int u = 0;
-					while (shell->cmd[e][u] == ' ')
-					{
-						u++;
-					}
-					if (shell->cmd[e][u] == '\0')
-						shell->cmd[e] = NULL;
-				}
-				e++;
-			}
-			i = 0;
-			if (g_p == 1)
-			{
-				if (shell->cmd[0])
-				{
-				ft_strcat(shell->cmd[0], shell->cmd[1]);
-				}
-			}
-			if (g_p == 2)
-			{
-				if (shell->cmd[0])
-				{
-					int r = 0;
-					while (shell->cmd[0][r])
-					{
-						r++;
-					}
-					shell->cmd[0][r] = '\0';
-					shell->cmd[1] = NULL;
-					shell->cmd = shell->cmd;
-				}
-			}
-			else if (g_p == 0)
-			{
-				while (shell->cmd[0][i] != ' ')
-				{
-					shell->cmd[0][i] = shell->cmd[0][i];
-					i++;
-				}
-				shell->cmd[0][i] = '\0';
 
+		co = ft_check_quote(buff);
+		prime = ft_is_prime(co);
+		if (prime != 1)
+			return;
+		if (co > 1 && prime == 1)
+		{
+			ft_check_quote(buff);
+			cmd = ft_epure_echo2(buff);
+			cmd = ft_ajout_quote(cmd);
+			shell->cmd = ft_str_cmd_spec(cmd, shell);
+			while (shell->cmd[e])
+				e++;
+			while (shell->cmd[e - 1][u])
+				u++;
+			shell->cmd[e - 1][u - 1] = '\0';
+			shell->cmd[0] = delete(shell->cmd);
+			int o = 0;
+			while (shell->cmd[o])
+			{
+				if (ft_isprint((int)shell->cmd[o][0]) == 0)
+					u = o;
+				o++;
 			}
+			//shell->cmd[u] = NULL;
 		}
 		else
 		{
-		t = 0;
 			cmd = ft_epure(buff);
-			while (cmd[t] != '\0')
+			while (cmd[t])
 			{
 				if (cmd[t] == ' ' && cmd[t + 1] == '\n')
-				{
 					cmd[t] = '\n';
-				}
-			t++;
+				t++;
 			}
 			shell->cmd = ft_str_cmd(cmd, shell);
 			t = 0;
-			while(shell->cmd[t])
+			e = 0;
+			while (shell->cmd[t])
 			{
-			t++;
-
+				/*while (shell->cmd[t][e])
+				{
+					printf("-/-/-/-/-/-/ %c\n", shell->cmd[t][e]);
+					e++;
+				}*/
+				e = 0;
+				t++;
 			}
+
 		}
 		if (ft_builtin(cmd, shell) == 1)
-		{
 			return;
-		}
 		ft_fork(shell);
 	}
 

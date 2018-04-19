@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 12:57:55 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/14 19:06:39 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/19 14:58:30 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,7 +58,6 @@ void		ft_fork(t_minishell *shell)
 	int i;
 	int status;
 	int o;
-		ft_putendl("FT FORK");
 
 	i  = 0;
 	pid_child = fork();
@@ -73,28 +72,13 @@ void		ft_fork(t_minishell *shell)
 			o = execve(file, shell->cmd, shell->env);
 			i++;
 		}
-		ft_putstr_color(shell->cmd[0], 0);
-		ft_putstr("\033[0m");
+		ft_putstr_color(shell->cmd[0], 3);
+		ft_putstr(STOP);
 		ft_putstr_color(": Command not found !", 1);
-		ft_putstr("\033[0m");
+		ft_putstr(STOP);
 		ft_putstr("\n");
 		exit(EXIT_FAILURE);
 	}
 	else
 		wait(&status);
-}
-void			ft_putstr_color(char const *s, int nb)
-{
-	if (s)
-	{
-		if (nb == 1)
-			ft_putstr("\033[0;31m");
-		if (nb == 0)
-			ft_putstr("\033[1;36m");
-		while (*s != '\0')
-		{
-			ft_putchar(*s);
-			s++;
-		}
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/14 19:05:03 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/19 14:28:03 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,10 +52,10 @@ void		ft_cd(char *str, char **env)
 	{
 		if (chdir(str) == -1)
 		{
-			ft_putstr_color(str, 0);
-		ft_putstr("\033[0m");
+			ft_putstr_color(str, 3);
+		ft_putstr(STOP);
 		ft_putstr_color(": No such file or directory", 1);
-		ft_putstr("\033[0m");
+		ft_putstr(STOP);
 		ft_putstr("\n");
 		}
 
@@ -63,25 +63,36 @@ void		ft_cd(char *str, char **env)
 	free(home);
 }
 
-void			ft_realloc_path(char *str, t_minishell *shell)
-{
-	(void)str;
-	(void)shell;
-
-}
-
 void		ft_set_env(char **env_cmd, t_minishell *shell)
 {
 	int i;
 	int p;
 	int j = 0;
+	char *tmp;
 
-	p = 0;
+	p = -1;
 	i = 0;
 	while(shell->env[i])
+	{
+		if (ft_strncmp(env_cmd[1], shell->env[i], ft_strlen(env_cmd[1])) == 0)
+			p = i;
 		i++;
+	}
+	if (p > -1)
+	{
+		if (!env_cmd[2])
+			env_cmd[2] = ft_strdup("");
+		else
+			tmp = ft_strdup(env_cmd[2]);
+		free(shell->env[p]);
+		shell->env[p] = ft_strdup(env_cmd[1]);
+		ft_strcat(shell->env[p], "=");
+		ft_strcat(shell->env[p], env_cmd[2]);
+		return ;
+	}
 	shell->env[i] = env_cmd[1];
 	ft_strcat(shell->env[i], "=");
+
 	if (env_cmd[2])
 	{
 		ft_strcat(shell->env[i], env_cmd[2]);
@@ -126,6 +137,23 @@ void		ft_realloc_env(t_minishell *shell, int len)
 	return;
 
 }
+
+int		ft_search_break(char *cmd, char c, char *env)
+{
+	int i;
+	int y;
+	i = 0;
+	y = 0;
+
+	while (env[i + 1] != c && cmd[y] == env[i])
+	{
+			i++;
+			y++;
+	}
+	if (cmd[y] != env[i])
+		return (0);
+	return(1);
+}
 void		ft_unset_env(char **env, t_minishell *shell)
 {
 	int i;
@@ -139,7 +167,7 @@ void		ft_unset_env(char **env, t_minishell *shell)
 	int len = ft_strlen(shell->cmd[1]);
 	while (shell->env[i] != NULL)
 	{
-		if ((compare = (ft_strncmp(shell->cmd[1], shell->env[i], ft_strlen(shell->cmd[1])) == 0)))
+		if (ft_search_break(shell->cmd[1], '=', shell->env[i]) == 1)
 		{
 			if (ft_strncmp("PATH=", shell->env[i], 5) == 0)
 			{
@@ -157,10 +185,10 @@ void		ft_unset_env(char **env, t_minishell *shell)
 		}
 		i++;
 	}
-	ft_putstr_color(shell->cmd[1], 0);
-		ft_putstr("\033[0m");
+	ft_putstr_color(shell->cmd[1], 3);
+		ft_putstr(STOP);
 	ft_putstr_color(": name doesnt't match !", 1);
-		ft_putstr("\033[0m");
+		ft_putstr(STOP);
 		ft_putstr("\n");
 }
 int		ft_inspect_echo(char *str)
@@ -202,10 +230,10 @@ void		ft_direct(char **cmd, char **env, t_minishell *shell, char *buff)
 	cmd_exec(cmd[0], cmd, env);
 	else
 	{
-		ft_putstr_color(shell->cmd[0], 0);
-		ft_putstr("\033[0m");
-		ft_putstr_color(": No such file or directory", 1);
-		ft_putstr("\033[0m");
+		ft_putstr_color(shell->cmd[0], 3);
+		ft_putstr(STOP);
+		ft_putstr_color(": No such file or directory !", 1);
+		ft_putstr(STOP);
 		ft_putstr("\n");
 	}
 
@@ -236,22 +264,35 @@ int			ft_builtin(char *cmd, t_minishell *shell)
 	}
 	else if (ft_strcmp("echo", shell->cmd[0]) == 0)
 	{
+		/*while (shell->cmd[o])
+		{
+			printf("------->>>>>>> %s\n", shell->cmd[o]);
+			o++;
+		}*/
+		o = 0;
 		while (shell->cmd[o])
 		{
-			ok = 1;
-			if (g_a == 1)
+			if (ft_strcmp(shell->cmd[o], "\n") == 0)
 			{
-				ft_putstr(shell->cmd[o]);
-			}
-			else
-			{
-				ft_putstr(shell->cmd[o]);
-				ft_putstr(" ");
+				ok = 1;
 			}
 			o++;
 		}
+		if (ok == 1)
+		{
+			shell->cmd[o - 1] = "\0";
+			ok  = 0;
+		}
+
+		o = 1;
+		while (shell->cmd[o])
+		{
+				ft_putstr(shell->cmd[o]);
+				ft_putstr(" ");
+			o++;
+		}
 		ft_putstr("\n");
-		g_a = 0;
+
 		return (1);
 	}
 	else if (ft_strcmp("setenv", shell->cmd[0]) == 0)

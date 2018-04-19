@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 15:35:03 by jecombe           #+#    #+#             */
-/*   Updated: 2018/03/26 17:47:53 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/19 17:34:57 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,26 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # define BUFF_SIZE 10
+
+#define BLACKB    "\033[1;30m"
+#define REDB      "\033[1;31m"
+#define GREENB    "\033[1;32m"
+#define YELLOWB   "\033[1;33m"
+#define BLUEB     "\033[1;34m"
+#define PURPLEB   "\033[1;35m"
+#define CYANB     "\033[1;36m"
+#define GREYB     "\033[1;37m"
+
+#define BLACK    "\033[0;30m"
+#define RED      "\033[0;31m"
+#define GREEN    "\033[0;32m"
+#define YELLOW   "\033[0;33m"
+#define BLUE     "\033[0;34m"
+#define PURPLE   "\033[0;35m"
+#define CYAN     "\033[0;36m"
+#define GREY     "\033[0;37m"
+
+#define STOP "\033[0;m"
 
 typedef struct		s_list
 {
@@ -95,6 +115,8 @@ int					ft_count_word(char const *s, char c);
 void				ft_bzero(void *s, size_t n);
 int					ft_atoi(const char *str);
 int					get_next_line(const int fd, char **line);
-
+void				ft_putstr_color(char const *s, int nb);
+int					ft_is_prime(int nb);
+char				*ft_strrev(char *str);
 
 #endif
