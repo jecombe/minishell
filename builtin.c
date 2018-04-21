@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/19 14:28:03 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 14:31:32 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -244,12 +244,6 @@ int			ft_builtin(char *cmd, t_minishell *shell)
 	int ok = 0;
 	if (ft_strcmp("exit\n", cmd) == 0)
 		exit(0);
-	/*if (ft_strcmp(cmd, "/") == 0)
-	{
-	printf("ok outin\n");
-	ft_direct(cmd, shell->env, shell);
-	return (1);
-	}*/	
 	else if (g_p == 1)
 	{
 		ft_direct(shell->cmd, shell->env, shell, cmd);
@@ -264,11 +258,6 @@ int			ft_builtin(char *cmd, t_minishell *shell)
 	}
 	else if (ft_strcmp("echo", shell->cmd[0]) == 0)
 	{
-		/*while (shell->cmd[o])
-		{
-			printf("------->>>>>>> %s\n", shell->cmd[o]);
-			o++;
-		}*/
 		o = 0;
 		while (shell->cmd[o])
 		{
@@ -283,7 +272,6 @@ int			ft_builtin(char *cmd, t_minishell *shell)
 			shell->cmd[o - 1] = "\0";
 			ok  = 0;
 		}
-
 		o = 1;
 		while (shell->cmd[o])
 		{
@@ -292,7 +280,6 @@ int			ft_builtin(char *cmd, t_minishell *shell)
 			o++;
 		}
 		ft_putstr("\n");
-
 		return (1);
 	}
 	else if (ft_strcmp("setenv", shell->cmd[0]) == 0)

@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 12:57:55 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/19 14:58:30 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/20 14:25:46 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,7 @@ void		ft_fork(t_minishell *shell)
 	i  = 0;
 	pid_child = fork();
 	if (pid_child == -1)
-		exit(-1);
+		exit(EXIT_FAILURE);
 	if (pid_child == 0)
 	{
 		signal(SIGINT, sigint);

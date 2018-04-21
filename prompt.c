@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:36 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/19 19:13:14 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 14:19:27 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -181,6 +181,55 @@ char		*ft_ajout_quote(char *str)
 
 }
 
+char		*ft_ajout_quote2(char *str)
+{
+	int i = 0;
+	int ok = 0;
+	int j = 0;
+	int ok2 = 0;
+	char	*result;
+	result =ft_strnew(4096);
+
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			str[i] = '\0';
+		i++;
+	}
+	i = 0;
+	while (str[i])
+	{
+		if (str[i + 1] == '"')
+		{
+			if (ft_is_prime(ok) == 0)
+			{
+				//i = i - 1;
+			}
+			else
+				i++;
+			ok++;
+		}
+		if (str[i] == ' ' && ft_is_prime(ok) == 1 && str[i + 1] != '"')
+		{
+
+			result[j] = '"';
+			i++;
+			j++;
+		}
+		result[j] = str[i];
+		i++;
+		j++;
+	}
+	if (result[j - 1] != '"')
+	{
+		result[j] = '"';
+		j++;
+	}
+result[j] = '\0';
+	return(result);
+
+}
+
 char			*delete(char **cmd)
 {
 	int u;
@@ -235,10 +284,13 @@ void		aff_prompt(t_minishell *shell)
 				rr++;
 			}
 		}*/
+		if (ft_strchr(buff, (int)'/') != NULL)
+		{
+			cmd = ft_epure(buff);
 		if (buff[0] == '/')
 		{
 			g_p = 1;
-			cmd = ft_epure(buff);
+			//cmd = ft_epure(buff);
 			while (cmd[t] != '\0')
 			{
 				if (cmd[t] == ' ' && cmd[t + 1] == '\n')
@@ -249,6 +301,7 @@ void		aff_prompt(t_minishell *shell)
 			ft_builtin(cmd, shell);
 			return;
 		}
+	}
 		if (ret == 0)
 		{
 			ft_putchar('\n');
@@ -265,9 +318,11 @@ void		aff_prompt(t_minishell *shell)
 		{
 			ft_check_quote(buff);
 			cmd = ft_epure_echo2(buff);
-			cmd = ft_ajout_quote(cmd);
+			//printf("apres epure: %s\n", cmd);
+			cmd = ft_ajout_quote2(cmd);
+			//printf("apres ajout: %s\n", cmd);
 			shell->cmd = ft_str_cmd_spec(cmd, shell);
-			while (shell->cmd[e])
+			/*while (shell->cmd[e])
 				e++;
 			while (shell->cmd[e - 1][u])
 				u++;
@@ -280,7 +335,7 @@ void		aff_prompt(t_minishell *shell)
 					u = o;
 				o++;
 			}
-			//shell->cmd[u] = NULL;
+			//shell->cmd[u] = NULL;*/
 		}
 		else
 		{
