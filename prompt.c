@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:36 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 14:19:27 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 16:26:46 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,6 +80,7 @@ int			ft_check_slahsn(char *str)
 	}
 	return (i);
 }
+
 char		*ft_epure_echo2(char *str)
 {
 	int i;
@@ -123,7 +124,7 @@ int			ft_count2(char *cmd)
 	}
 	return (co);
 }
-int g_ok;
+
 char			**ft_str_cmd_spec(char *cmd, t_minishell *shell)
 {
 	int count;
@@ -262,35 +263,15 @@ void		aff_prompt(t_minishell *shell)
 
 	cmd = (char *)malloc(sizeof(char) * (4096));
 	buff = (char *)malloc(sizeof(char) * (4096));
-	ft_putstr_color("[", 10);
-	ft_putstr(STOP);
-	ft_putstr_color(user, 14);
-	ft_putstr(STOP);
-	ft_putstr_color("]", 10);
-	ft_putstr(STOP);
-	ft_putstr_color("==> ", 9);
-	ft_putstr(STOP);
+	ft_print_prompt();
 	if ((ret = (read(0, buff, READ_SIZE))) != -1)
 	{
-		/*if (ft_strchr(buff, ';'))
-		{
-			printf("yes %s\n", buff);
-			shell->test = ft_strsplit(buff, ';');
-			int rr;
-			rr = 0;
-			while (shell->test[rr])
-			{
-				printf("--> %s\n", shell->test[rr]);
-				rr++;
-			}
-		}*/
 		if (ft_strchr(buff, (int)'/') != NULL)
 		{
 			cmd = ft_epure(buff);
 		if (buff[0] == '/')
 		{
 			g_p = 1;
-			//cmd = ft_epure(buff);
 			while (cmd[t] != '\0')
 			{
 				if (cmd[t] == ' ' && cmd[t + 1] == '\n')
@@ -309,7 +290,6 @@ void		aff_prompt(t_minishell *shell)
 		}
 		if (ft_check_space(buff) == 0)
 			return;
-
 		co = ft_check_quote(buff);
 		prime = ft_is_prime(co);
 		if (prime != 1)
@@ -318,24 +298,8 @@ void		aff_prompt(t_minishell *shell)
 		{
 			ft_check_quote(buff);
 			cmd = ft_epure_echo2(buff);
-			//printf("apres epure: %s\n", cmd);
 			cmd = ft_ajout_quote2(cmd);
-			//printf("apres ajout: %s\n", cmd);
 			shell->cmd = ft_str_cmd_spec(cmd, shell);
-			/*while (shell->cmd[e])
-				e++;
-			while (shell->cmd[e - 1][u])
-				u++;
-			shell->cmd[e - 1][u - 1] = '\0';
-			shell->cmd[0] = delete(shell->cmd);
-			int o = 0;
-			while (shell->cmd[o])
-			{
-				if (ft_isprint((int)shell->cmd[o][0]) == 0)
-					u = o;
-				o++;
-			}
-			//shell->cmd[u] = NULL;*/
 		}
 		else
 		{
@@ -347,23 +311,9 @@ void		aff_prompt(t_minishell *shell)
 				t++;
 			}
 			shell->cmd = ft_str_cmd(cmd, shell);
-			t = 0;
-			e = 0;
-			while (shell->cmd[t])
-			{
-				/*while (shell->cmd[t][e])
-				{
-					printf("-/-/-/-/-/-/ %c\n", shell->cmd[t][e]);
-					e++;
-				}*/
-				e = 0;
-				t++;
-			}
-
 		}
 		if (ft_builtin(cmd, shell) == 1)
 			return;
 		ft_fork(shell);
 	}
-
 }

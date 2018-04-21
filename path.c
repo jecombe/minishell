@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 14:41:54 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/19 11:51:52 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 16:26:33 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,6 @@ int			ft_check_path(char **env)
 	if (ok == 0)
 		ft_putendl("PATH is not set");
 	return (ok);
-
 }
 
 int			ft_count(char *str, int value)
@@ -62,7 +61,6 @@ int			ft_count_char(char *str)
 		co++;
 	co++;
 	return (co);
-
 }
 
 char		**path(t_minishell *shell, char **env)
@@ -84,7 +82,6 @@ char		**path(t_minishell *shell, char **env)
 			}
 			i++;
 		}
-
 	}
 	return (0);
 }

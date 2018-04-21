@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/26 18:12:05 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/19 14:56:43 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 16:21:51 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,5 +45,7 @@ void		ft_fork(t_minishell *shell);
 void		ft_putstr_color(const char *str, int nb);
 char		*split_path(t_minishell *shell);
 void		ft_direct(char **cmd, char **env, t_minishell *shell, char *buff);
+void		ft_print_error(const char *s1, const char *s2);
+void		ft_print_prompt(void);
 
 #endif

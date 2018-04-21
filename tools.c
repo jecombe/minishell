@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 12:57:55 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/20 14:25:46 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 16:26:53 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,10 +45,29 @@ char		**ft_str_cmd(char *cmd, t_minishell *shell)
 		}
 		shell->cmd[a][b] = '\0';
 	}
-	
 		shell->cmd[a + 1] = NULL;
-
 	return (shell->cmd);
+}
+
+void		ft_print_prompt(void)
+{
+	ft_putstr_color("[", 10);
+		ft_putstr(STOP);
+	ft_putstr_color(user, 14);
+		ft_putstr(STOP);
+		ft_putstr_color("]", 10);
+		ft_putstr(STOP);
+	ft_putstr_color("==> ", 9);
+		ft_putstr(STOP);
+}
+
+void		ft_print_error(const char *s1, const char *s2)
+{
+		ft_putstr_color(s1, 3);
+		ft_putstr(STOP);
+		ft_putstr_color(s2, 1);
+		ft_putstr(STOP);
+		ft_putstr("\n");
 }
 
 void		ft_fork(t_minishell *shell)
@@ -72,11 +91,7 @@ void		ft_fork(t_minishell *shell)
 			o = execve(file, shell->cmd, shell->env);
 			i++;
 		}
-		ft_putstr_color(shell->cmd[0], 3);
-		ft_putstr(STOP);
-		ft_putstr_color(": Command not found !", 1);
-		ft_putstr(STOP);
-		ft_putstr("\n");
+		ft_print_error(shell->cmd[0], ": Command not found !");
 		exit(EXIT_FAILURE);
 	}
 	else

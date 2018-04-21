@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 14:31:32 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 16:20:49 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,11 +52,7 @@ void		ft_cd(char *str, char **env)
 	{
 		if (chdir(str) == -1)
 		{
-			ft_putstr_color(str, 3);
-		ft_putstr(STOP);
-		ft_putstr_color(": No such file or directory", 1);
-		ft_putstr(STOP);
-		ft_putstr("\n");
+			ft_print_error(str, ": No such file or directory !");
 		}
 
 	}
@@ -185,11 +181,7 @@ void		ft_unset_env(char **env, t_minishell *shell)
 		}
 		i++;
 	}
-	ft_putstr_color(shell->cmd[1], 3);
-		ft_putstr(STOP);
-	ft_putstr_color(": name doesnt't match !", 1);
-		ft_putstr(STOP);
-		ft_putstr("\n");
+	ft_print_error(shell->cmd[1], ": name doesn't match !");
 }
 int		ft_inspect_echo(char *str)
 {
@@ -230,11 +222,7 @@ void		ft_direct(char **cmd, char **env, t_minishell *shell, char *buff)
 	cmd_exec(cmd[0], cmd, env);
 	else
 	{
-		ft_putstr_color(shell->cmd[0], 3);
-		ft_putstr(STOP);
-		ft_putstr_color(": No such file or directory !", 1);
-		ft_putstr(STOP);
-		ft_putstr("\n");
+	ft_print_error(shell->cmd[0], ": No such file or directory !");
 	}
 
 }

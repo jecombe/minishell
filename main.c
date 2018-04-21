@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/19 14:54:56 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 16:22:06 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,14 +87,7 @@ void			sigint(int sig)
 {
 	(void)sig;
 	ft_putchar('\n');
-	ft_putstr_color("[", 10);
-		ft_putstr(STOP);
-	ft_putstr_color(user, 14);
-		ft_putstr(STOP);
-		ft_putstr_color("]", 10);
-		ft_putstr(STOP);
-	ft_putstr_color("==> ", 9);
-		ft_putstr(STOP);
+	ft_print_prompt();
 }
 
 char		*split_path(t_minishell *shell)
