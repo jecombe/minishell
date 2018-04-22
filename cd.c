@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 14:15:33 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/22 14:37:59 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/22 16:10:20 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,13 +15,15 @@
 
 static char		*ft_home(char **env)
 {
-	char *result;
-	int i;
-	int a;
-	int b;
-	int ok;
+	char		*result;
+	int			i;
+	int			a;
+	int			b;
+	int			ok;
 
 	i = 0;
+	a = 5;
+	b = 0;
 	ok = 0;
 	result = (char *)malloc(sizeof(char) * (4096));
 	while (env[i])
@@ -29,8 +31,6 @@ static char		*ft_home(char **env)
 		if (ft_strncmp(env[i], "HOME=", 5) == 0)
 		{
 			ok = 1;
-			a = 5;
-			b = 0;
 			while (env[i][a] != '\0')
 				result[b++] = env[i][a++];
 		}
@@ -41,7 +41,7 @@ static char		*ft_home(char **env)
 	return (result);
 }
 
-void		ft_cd(char *str, char **env)
+void			ft_cd(char *str, char **env)
 {
 	(void)str;
 	char *home;
@@ -52,9 +52,7 @@ void		ft_cd(char *str, char **env)
 	else
 	{
 		if (chdir(str) == -1)
-		{
 			ft_print_error(str, ": No such file or directory !");
-		}
 	}
 	free(home);
 }

@@ -1,13 +1,14 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jecombe <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/07 15:35:03 by jecombe           #+#    #+#             */
-/*   Updated: 2018/04/22 13:35:09 by jecombe     ###    #+. /#+    ###.fr     */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   libft.h                                          .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: jecombe <jecombe@student.le-101.f>         +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2017/12/15 16:00:23 by jecombe      #+#   ##    ##    #+#       */
+/*   Updated: 2018/04/22 17:39:30 by jecombe     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
@@ -16,10 +17,13 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# define BUFF_SIZE 10
+
+typedef struct		s_list
+{
+	void			*content;
+	size_t			content_size;
+	struct s_list	*next;
+}					t_list;
 
 #define BLACKB    "\033[1;30m"
 #define REDB      "\033[1;31m"
@@ -40,13 +44,6 @@
 #define GREY     "\033[0;37m"
 
 #define STOP "\033[0;m"
-
-typedef struct		s_list
-{
-	void			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}					t_list;
 
 int					ft_toupper(int c);
 int					ft_tolower(int c);
@@ -114,10 +111,8 @@ int					ft_isalnum(int c);
 int					ft_count_word(char const *s, char c);
 void				ft_bzero(void *s, size_t n);
 int					ft_atoi(const char *str);
-int					get_next_line(const int fd, char **line);
+int					ft_match_before_char(char *cmd, char c, char *env);
 void				ft_putstr_color(char const *s, int nb);
 int					ft_is_prime(int nb);
-char				*ft_strrev(char *str);
-int					ft_match_before_char(char *cmd, char c, char *env);
 
 #endif
