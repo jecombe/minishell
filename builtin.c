@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/22 16:22:48 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/22 17:51:28 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,7 +78,7 @@ int			ft_buitlin_next(t_minishell *shell)
 
 int			ft_builtin(char *cmd, t_minishell *shell)
 {
-	if (ft_strcmp("exit\n", cmd) == 0)
+	if (ft_strcmp("exit", shell->cmd[0]) == 0)
 		exit(0);
 	else if (g_p == 1)
 	{
