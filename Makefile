@@ -16,7 +16,13 @@ FILES = main.c \
 		path.c \
 		prompt.c \
 		builtin.c \
-		tools.c
+		tools.c \
+		env.c \
+		cd.c \
+		fork.c \
+		str_to_tab.c \
+		quote.c \
+		epure.c
 
 END=\x1b[0m
 BOLD=\x1b[1m

@@ -6,14 +6,14 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 14:41:54 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 16:26:33 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/22 14:52:39 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			ft_check_path(char **env)
+int			ft_check_path(char **env, int value)
 {
 	int ok;
 	int compare;
@@ -29,38 +29,13 @@ int			ft_check_path(char **env)
 		i++;
 	}
 	if (ok == 0)
-		ft_putendl("PATH is not set");
-	return (ok);
-}
-
-int			ft_count(char *str, int value)
-{
-	int i;
-	int co;
-
-	co = 1;
-	i = 0;
-	while (str[i] && str[i] != '\n')
 	{
-		if (value == 0)
-			if (str[i] == ':' && str[i + 1] != '\0')
-				co++;
 		if (value == 1)
-			if (str[i] == ' ' && str[i + 1] != '\0')
-				co++;
-		i++;
+			ft_print_error("echo", ": Command not found !");
+		else if (value == 0)
+			ft_print_error(NULL, "PATH is not set");
 	}
-	return (co);
-}
-
-int			ft_count_char(char *str)
-{
-	int co;
-	co = 0;
-	while (str[co] != ' ' && str[co] != '\n' && str[co] != '\0')
-		co++;
-	co++;
-	return (co);
+	return (ok);
 }
 
 char		**path(t_minishell *shell, char **env)
@@ -69,7 +44,7 @@ char		**path(t_minishell *shell, char **env)
 	int checkPath;
 	int compare;
 
-	checkPath = ft_check_path(env);
+	checkPath = ft_check_path(env, 0);
 	if (checkPath == 1)
 	{
 		compare = 0;
@@ -84,4 +59,23 @@ char		**path(t_minishell *shell, char **env)
 		}
 	}
 	return (0);
+}
+
+char		*split_path(t_minishell *shell)
+{
+	int i;
+	int o;
+	o = 0;
+	int j;
+	j=  0;
+	i = 5;
+	while (shell->tab[0][i] != '\0')
+	{
+		shell->tab[0][j] = shell->tab[0][i];
+		j++;
+		i++;
+	}
+	shell->tab[0][j] = '/';
+	shell->tab[0][j + 1] = '\0';
+	return (shell->tab[0]);
 }

@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 15:35:03 by jecombe           #+#    #+#             */
-/*   Updated: 2018/04/19 17:34:57 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/22 13:35:09 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ int					get_next_line(const int fd, char **line);
 void				ft_putstr_color(char const *s, int nb);
 int					ft_is_prime(int nb);
 char				*ft_strrev(char *str);
+int					ft_match_before_char(char *cmd, char c, char *env);
 
 #endif

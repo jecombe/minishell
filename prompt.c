@@ -6,260 +6,74 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:36 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 16:26:46 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/22 15:47:27 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_check_space(char *buff)
+void		ft_exec_slash(char *cmd, char *buff, t_minishell *shell)
 {
-	int i;
-	i = 0;
-	while (buff[i] == ' ' || buff[i] == '\n')
-		i++;
-	if ((buff[i] >= 'a' && buff[i] <= 'z') || (buff[i] >= 'A' && buff[i] <= 'Z'))
-		return (1);
-	else
-		return (0);
-}
+	int t;
 
-char		*ft_epure(char *str)
-{
-	int i;
-	int j;
-
-	if (!str)
-		return(0);
-	i = -1;
-	j = 0;
-	while (str[++i])
+	t = 0;
+	cmd = ft_epure(buff);
+	if (buff[0] == '/')
 	{
-		if (str[i] != ' ' && str[i] != '\t')
+		g_p = 1;
+		while (cmd[t] != '\0')
 		{
-			str[j] = str[i];
-			j++;
-			if (str[i + 1] ==  ' ' || str[i + 1] == '\t')
-			{
-				str[j] = ' ';
-				j++;
-			}
+			if (cmd[t] == ' ' && cmd[t + 1] == '\n')
+				cmd[t] = '\n';
+			t++;
 		}
+		shell->cmd = ft_str_cmd(cmd, shell);
+		ft_builtin(cmd, shell);
+		return ;
 	}
-	str[j] = '\0';
-	if (str[j - 1] == ' ')
-		str[j - 1] = '\0';
-	return (str);
 }
 
-int			ft_verif_quote(char *str)
+void		aff_prompt_next2(char *cmd, t_minishell *shell, int t, char *buff)
 {
-	int i = 0;
-	int ok = 0;
-	while (str[i] != '"')
+	cmd = ft_epure(buff);
+	while (cmd[t])
 	{
-		if (str[i + 1] == '"' && str[i] != ' ')
-		{
-			return (0);
-			ok = 1;
-		}
-		i++;
+		if (cmd[t] == ' ' && cmd[t + 1] == '\n')
+			cmd[t] = '\n';
+		t++;
 	}
-	return (1);
-
+	shell->cmd = ft_str_cmd(cmd, shell);
 }
 
-int			ft_check_slahsn(char *str)
+void		aff_prompt_next(char *buff, char *cmd, t_minishell *shell)
 {
-	int i;
-	i = 0;
-	while (str[i] != '\n' && str[i] == ' ')
-	{
-		i++;
-	}
-	return (i);
-}
-
-char		*ft_epure_echo2(char *str)
-{
-	int i;
-	int ok;
-	int ok2;
-	ok2 = 0;
-	char	*result;
-	int j  = 0;
-	ok = 0;
-	i = 0;
-	if (str[i] == ' ')
-		while (str[i] == ' ')
-			i++;
-	while (str[i])
-	{
-		if (str[i] == '"')
-			ok++;
-		if (str[i] == ' ' && ft_is_prime(ok) == 1)
-			while (str[i + 1] == ' ')
-				i++;
-		str[j] = str[i];
-		j++;
-		i++;
-	}
-	str[j] = '\0';
-	return (str);
-
-}
-
-int			ft_count2(char *cmd)
-{
-	int i;
-	int co;
-
-	co = 0;
-	i = 0;
-	while (cmd[i + 1] != '\n')
-	{
-		co++;
-		i++;
-	}
-	return (co);
-}
-
-char			**ft_str_cmd_spec(char *cmd, t_minishell *shell)
-{
-	int count;
-	count = 0;
-	int i= 0;
-	int b = 0;
-	(void)shell;
-	return (ft_strsplit(cmd, '"'));
-}
-
-int			ft_check_quote(char *buff)
-{
-	int i;
-	int co;
-
-	i = 0;
-	co  =0;
-	while (buff[i])
-	{
-		if (buff[i] == 34 || buff[i] == 39)
-			co++;
-		i++;
-	}
-	return (co);
-}
-char		*ft_ajout_quote(char *str)
-{
-	int i = 0;
-	int ok = 0;
-	int j = 0;
-	int ok2 = 0;
-	while (str[i])
-	{
-		if (str[i] == '"')
-			ok++;
-		if (str[i] == ' ' && ft_is_prime(ok) == 1)
-		{
-			ok2++;
-			if (str[i + 1] != '"')
-			{
-				if (ok2 == 1)
-				{
-					str[i] = ' ';
-					i++;
-				}
-				str[i] = '"';
-				i++;
-			}
-		}
-		i++;
-	}
-	str[i] = '"';
-	str[i + 1] = '\0';
-	return(str);
-
-}
-
-char		*ft_ajout_quote2(char *str)
-{
-	int i = 0;
-	int ok = 0;
-	int j = 0;
-	int ok2 = 0;
-	char	*result;
-	result =ft_strnew(4096);
-
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			str[i] = '\0';
-		i++;
-	}
-	i = 0;
-	while (str[i])
-	{
-		if (str[i + 1] == '"')
-		{
-			if (ft_is_prime(ok) == 0)
-			{
-				//i = i - 1;
-			}
-			else
-				i++;
-			ok++;
-		}
-		if (str[i] == ' ' && ft_is_prime(ok) == 1 && str[i + 1] != '"')
-		{
-
-			result[j] = '"';
-			i++;
-			j++;
-		}
-		result[j] = str[i];
-		i++;
-		j++;
-	}
-	if (result[j - 1] != '"')
-	{
-		result[j] = '"';
-		j++;
-	}
-result[j] = '\0';
-	return(result);
-
-}
-
-char			*delete(char **cmd)
-{
-	int u;
-	int i;
-
-	u = 0;
-	i = 0;
-	while (cmd[0][u] != ' ')
-	{
-		cmd[0][i] = cmd[0][u];
-		u++;
-		i++;
-	}
-	cmd[0][i] = '\0';
-	return(cmd[0]);
-
-
-}
-void		aff_prompt(t_minishell *shell)
-{
-	char *cmd;
-	char *buff;
-	int ret;
-	int u = 0;
-	int i = 0;
-	int t = 0;
-	int e = 0;
 	int co;
 	int prime;
+	int t;
+
+	t = 0;
+	co = ft_check_quote(buff);
+	prime = ft_is_prime(co);
+	if (prime != 1)
+		return ;
+	if (co > 1 && prime == 1)
+	{
+		ft_check_quote(buff);
+		cmd = ft_epure_quote(buff);
+		cmd = ft_ajout_quote(cmd);
+		shell->cmd = ft_str_cmd_quote(cmd, shell);
+		free(cmd);
+	}
+	else
+		aff_prompt_next2(cmd, shell, t, buff);
+}
+
+void		aff_prompt(t_minishell *shell)
+{
+	char	*cmd;
+	char	*buff;
+	int		ret;
 
 	cmd = (char *)malloc(sizeof(char) * (4096));
 	buff = (char *)malloc(sizeof(char) * (4096));
@@ -267,53 +81,17 @@ void		aff_prompt(t_minishell *shell)
 	if ((ret = (read(0, buff, READ_SIZE))) != -1)
 	{
 		if (ft_strchr(buff, (int)'/') != NULL)
-		{
-			cmd = ft_epure(buff);
-		if (buff[0] == '/')
-		{
-			g_p = 1;
-			while (cmd[t] != '\0')
-			{
-				if (cmd[t] == ' ' && cmd[t + 1] == '\n')
-					cmd[t] = '\n';
-				t++;
-			}
-			shell->cmd = ft_str_cmd(cmd, shell);
-			ft_builtin(cmd, shell);
-			return;
-		}
-	}
+			ft_exec_slash(cmd, buff, shell);
 		if (ret == 0)
 		{
 			ft_putchar('\n');
 			exit(0);
 		}
 		if (ft_check_space(buff) == 0)
-			return;
-		co = ft_check_quote(buff);
-		prime = ft_is_prime(co);
-		if (prime != 1)
-			return;
-		if (co > 1 && prime == 1)
-		{
-			ft_check_quote(buff);
-			cmd = ft_epure_echo2(buff);
-			cmd = ft_ajout_quote2(cmd);
-			shell->cmd = ft_str_cmd_spec(cmd, shell);
-		}
-		else
-		{
-			cmd = ft_epure(buff);
-			while (cmd[t])
-			{
-				if (cmd[t] == ' ' && cmd[t + 1] == '\n')
-					cmd[t] = '\n';
-				t++;
-			}
-			shell->cmd = ft_str_cmd(cmd, shell);
-		}
+			return ;
+		aff_prompt_next(buff, cmd, shell);
 		if (ft_builtin(cmd, shell) == 1)
-			return;
+			return ;
 		ft_fork(shell);
 	}
 }
