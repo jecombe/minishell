@@ -1,3 +1,7 @@
+FOLDERO = objs
+
+MKDIR = mkdir -p $(FOLDERO)
+
 .PHONY: all re clean fclean
 
 NAME = minishell
@@ -11,6 +15,8 @@ HEAD = -I
 LIB_DIR = ./libft/
 
 LIB = libft.a
+
+SOURCES = srcs
 
 FILES = main.c \
 		path.c \
@@ -105,20 +111,24 @@ ASCII_ART=\n\
 
 
 
-OBJS = $(FILES:.c=.o)
+FOBJS = $(FILES:.c=.o)
+
+OBJS = $(addprefix $(FOLDERO)/,$(FOBJS))
 
 all: $(NAME)
+
 
 $(NAME): $(LIB) $(OBJS)
 	@gcc -o $(NAME) $(OBJS) $(LIB_DIR)$)$(LIB)
 	@echo "\033[1;35m ==========> COMPILING $(NAME)"
-	@echo "\033[1;32m ==========[ FT_LS SUCCESSFULLY CREATED ]=========="
+	@echo "\033[1;32m ==========[ FT_MINISHELL SUCCESSFULLY CREATED ]=========="
 	@printf "$(ASCII_ART)"
 
 $(LIB):
 	@cd $(LIB_DIR) && $(MAKE)
 
-./%.o: ./%.c
+$(FOLDERO)/%.o: $(SOURCES)/%.c
+	@mkdir $(FOLDERO) 2> /dev/null || true
 	@$(CC) $(HEAD) $(CC_FLAGS) -o $@ -c $<
 	@echo "\033[1;34m$@ ==> CREATED"
 
@@ -126,11 +136,14 @@ clean:
 	@cd $(LIB_DIR) && $(MAKE) $@
 	@/bin/rm -f $(OBJS)
 	@echo "\033[1;31m$(OBJS) ==> DELETED"
+	@echo "\033[1;31m objs ==> DELETED"
 
 fclean: clean
 	@cd $(LIB_DIR) && /bin/rm -f $(LIB)
 	@/bin/rm -f $(NAME)
+	@rm -rf objs
 	@echo "\033[1;31m$(LIB) ==> DELETED"
 	@echo "\033[1;31m$(NAME) ==> DELETED"
+	@echo "\033[1;31m objs ==> DELETED"
 
 re: fclean all
