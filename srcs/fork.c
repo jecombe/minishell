@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 14:20:22 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/22 14:43:55 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/24 13:13:08 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,7 @@ void		ft_fork(t_minishell *shell)
 		wait(&status);
 }
 
-static void		cmd_exec(char *exec, char **input, char **env)
+void		cmd_exec(char *exec, char **input, char **env)
 {
 	pid_t pid;
 	pid = fork();

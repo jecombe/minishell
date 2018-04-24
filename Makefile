@@ -28,7 +28,8 @@ FILES = main.c \
 		fork.c \
 		str_to_tab.c \
 		quote.c \
-		epure.c
+		epure.c \
+		ft_free.c
 
 END=\x1b[0m
 BOLD=\x1b[1m

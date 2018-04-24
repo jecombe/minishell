@@ -6,7 +6,7 @@
 /*   By: jecombe <jecombe@student.le-101.f>         +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/15 16:00:23 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/22 17:39:30 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/23 15:40:47 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -114,5 +114,6 @@ int					ft_atoi(const char *str);
 int					ft_match_before_char(char *cmd, char c, char *env);
 void				ft_putstr_color(char const *s, int nb);
 int					ft_is_prime(int nb);
-
+void				ft_free_tab(char **tab);
+void				ft_print_tab(char **tab);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/22 17:51:28 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/24 12:53:10 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,13 +51,13 @@ int			ft_buitlin_next(t_minishell *shell)
 {
 	int ok;
 	int o;
+	int i;
 
 	ok = 0;
 	o = 1;
+	i  = 0;
 	if (ft_strcmp("echo", shell->cmd[0]) == 0)
 	{
-		if ((ft_check_path(shell->env, 1)) == 0)
-			return (0);
 		ft_check_slashn(shell->cmd);
 		ft_print_echo(shell->cmd);
 		return (1);
@@ -72,6 +72,11 @@ int			ft_buitlin_next(t_minishell *shell)
 		ft_unset_env(shell->cmd, shell);
 		return (1);
 	}
+	else if (ft_strcmp("env", shell->cmd[0]) == 0)
+	{
+		ft_print_tab(shell->env);
+		return (1);
+	}
 	else
 		return (0);
 }
@@ -79,7 +84,11 @@ int			ft_buitlin_next(t_minishell *shell)
 int			ft_builtin(char *cmd, t_minishell *shell)
 {
 	if (ft_strcmp("exit", shell->cmd[0]) == 0)
+	{
+		ft_free(shell->tab, shell->env, shell->cmd);
+		ft_strdel(&cmd);
 		exit(0);
+	}
 	else if (g_p == 1)
 	{
 		ft_direct(shell->cmd, shell->env, shell, cmd);
@@ -88,7 +97,7 @@ int			ft_builtin(char *cmd, t_minishell *shell)
 	}
 	else if (ft_strcmp("cd", shell->cmd[0]) == 0)
 	{
-		ft_cd(shell->cmd[1], shell->env);
+		ft_cd(shell->cmd[1], shell->env, shell);
 		return (1);
 	}
 	if (ft_buitlin_next(shell) == 0)

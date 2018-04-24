@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/26 18:12:05 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/22 17:46:57 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/24 13:59:50 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,8 +31,7 @@ typedef struct s_minishell
 	char **tab;
 	char **cmd;
 	char **env;
-	char **test;
-	char *user;
+	char	*old;
 }			t_minishell;
 
 char		**path(t_minishell *shell, char **env);
@@ -49,7 +48,7 @@ void		ft_print_prompt(void);
 int			ft_check_path(char **env, int value);
 void		ft_set_env(char **env_cmd, t_minishell *shell);
 void		ft_unset_env(char **env, t_minishell *shell);
-void		ft_cd(char *str, char **env);
+void		ft_cd(char *str, char **env, t_minishell *shell);
 void		init_shell(void);
 void		env_now(t_minishell *shell, char **envv);
 char		*split_path(t_minishell *shell);
@@ -59,5 +58,7 @@ int			ft_check_quote(char *buff);
 char		*ft_epure_quote(char *str);
 char		*ft_epure(char *str);
 int			ft_check_space(char *buff);
+void		ft_free(char **tab, char **env, char **cmd);
+void		cmd_exec(char *exec, char **input, char **env);
 
 #endif

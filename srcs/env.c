@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 13:26:51 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/22 17:41:09 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/23 15:47:02 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,16 +96,18 @@ void		ft_realloc_env(t_minishell *shell, int len)
 	{
 		c = ft_strdup(shell->env[i]);
 		ft_strdel(&shell->env[i]);
-		shell->env[i] = c;
+		shell->env[i] = ft_strdup(c);
+		ft_strdel(&c);
 		i++;
 	}
-	free(shell->env[i]);
+	ft_strdel(&shell->env[i]);
 	ok = 1;
-	i = i +1;
+	i = i + 1;
 	while (shell->env[i])
 	{
 		c = ft_strdup(shell->env[i]);
-		shell->env[i - 1] = c;
+		shell->env[i - 1] = ft_strdup(c);
+		ft_strdel(&c);
 		i++;
 	}
 	shell->env[i - 1] = NULL;
@@ -117,6 +119,7 @@ void		ft_unset_env(char **env, t_minishell *shell)
 	int i;
 	(void)env;
 	int p;
+	int o = 0;
 
 	p = 0;
 	i = 0;
@@ -126,7 +129,6 @@ void		ft_unset_env(char **env, t_minishell *shell)
 		{
 			if (ft_strncmp("PATH=", shell->env[i], 5) == 0)
 			{
-				int p = 0;
 				while (shell->tab[p])
 				{
 					ft_strdel(&shell->tab[p]);
@@ -135,7 +137,6 @@ void		ft_unset_env(char **env, t_minishell *shell)
 				free(shell->tab);
 			}
 			ft_realloc_env(shell, i);
-			p = 0;
 			return;
 		}
 		i++;

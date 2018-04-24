@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:36 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/22 15:47:27 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/23 14:05:17 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,8 +45,7 @@ void		aff_prompt_next2(char *cmd, t_minishell *shell, int t, char *buff)
 	}
 	shell->cmd = ft_str_cmd(cmd, shell);
 }
-
-void		aff_prompt_next(char *buff, char *cmd, t_minishell *shell)
+int		aff_prompt_next(char *buff, char *cmd, t_minishell *shell)
 {
 	int co;
 	int prime;
@@ -56,7 +55,11 @@ void		aff_prompt_next(char *buff, char *cmd, t_minishell *shell)
 	co = ft_check_quote(buff);
 	prime = ft_is_prime(co);
 	if (prime != 1)
-		return ;
+	{
+		ft_strdel(&cmd);
+		ft_strdel(&buff);
+		return (0);
+	}
 	if (co > 1 && prime == 1)
 	{
 		ft_check_quote(buff);
@@ -67,6 +70,7 @@ void		aff_prompt_next(char *buff, char *cmd, t_minishell *shell)
 	}
 	else
 		aff_prompt_next2(cmd, shell, t, buff);
+	return (1);
 }
 
 void		aff_prompt(t_minishell *shell)
@@ -89,7 +93,8 @@ void		aff_prompt(t_minishell *shell)
 		}
 		if (ft_check_space(buff) == 0)
 			return ;
-		aff_prompt_next(buff, cmd, shell);
+		if (aff_prompt_next(buff, cmd, shell) == 0)
+			return;
 		if (ft_builtin(cmd, shell) == 1)
 			return ;
 		ft_fork(shell);
