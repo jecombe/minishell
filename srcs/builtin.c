@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/24 12:53:10 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/26 12:19:15 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,13 +49,6 @@ void		ft_print_echo(char **cmd)
 
 int			ft_buitlin_next(t_minishell *shell)
 {
-	int ok;
-	int o;
-	int i;
-
-	ok = 0;
-	o = 1;
-	i  = 0;
 	if (ft_strcmp("echo", shell->cmd[0]) == 0)
 	{
 		ft_check_slashn(shell->cmd);
@@ -69,7 +62,7 @@ int			ft_buitlin_next(t_minishell *shell)
 	}
 	else if (ft_strcmp("unsetenv", shell->cmd[0]) == 0)
 	{
-		ft_unset_env(shell->cmd, shell);
+		ft_unset_env(shell);
 		return (1);
 	}
 	else if (ft_strcmp("env", shell->cmd[0]) == 0)

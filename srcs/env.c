@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 13:26:51 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/23 15:47:02 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/26 12:24:59 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,14 +17,17 @@ void			env_now(t_minishell *shell, char **envv)
 {
 	int i;
 	int j;
-	int result = 0;
-	int co = 0;
+	int result;
+	int co;
+
 	i = 0;
+	result = 0;
+	co = 0;
 	j = 0;
 	while (envv[i])
 	{
 		co = ft_strlen(envv[i]);
-		result = result + co ;
+		result = result + co;
 		i++;
 	}
 	i = 0;
@@ -39,33 +42,24 @@ void			env_now(t_minishell *shell, char **envv)
 	shell->env[j] = NULL;
 }
 
-void		ft_set_env(char **env_cmd, t_minishell *shell)
+void			ft_set_env_tool(char **env_cmd, t_minishell *shell, int p, \
+		char *tmp)
 {
-	int i;
-	int p;
-	int j = 0;
-	char *tmp;
+	if (!env_cmd[2])
+		env_cmd[2] = ft_strdup("");
+	else
+		tmp = ft_strdup(env_cmd[2]);
+	free(shell->env[p]);
+	shell->env[p] = ft_strdup(env_cmd[1]);
+	ft_strcat(shell->env[p], "=");
+	ft_strcat(shell->env[p], env_cmd[2]);
+}
 
-	p = -1;
-	i = 0;
-	while(shell->env[i])
-	{
-		if (ft_strncmp(env_cmd[1], shell->env[i], ft_strlen(env_cmd[1])) == 0)
-			p = i;
-		i++;
-	}
-	if (p > -1)
-	{
-		if (!env_cmd[2])
-			env_cmd[2] = ft_strdup("");
-		else
-			tmp = ft_strdup(env_cmd[2]);
-		free(shell->env[p]);
-		shell->env[p] = ft_strdup(env_cmd[1]);
-		ft_strcat(shell->env[p], "=");
-		ft_strcat(shell->env[p], env_cmd[2]);
-		return ;
-	}
+void			ft_set_env_next(t_minishell *shell, char **env_cmd, int i)
+{
+	int j;
+
+	j = 0;
 	shell->env[i] = env_cmd[1];
 	ft_strcat(shell->env[i], "=");
 	if (env_cmd[2])
@@ -86,19 +80,44 @@ void		ft_set_env(char **env_cmd, t_minishell *shell)
 	}
 }
 
-void		ft_realloc_env(t_minishell *shell, int len)
+void			ft_set_env(char **env_cmd, t_minishell *shell)
 {
-	int i;
-	int ok = 0;
+	int			i;
+	int			p;
+	int			j;
+	char		*tmp;
+
+	j = 0;
+	p = -1;
 	i = 0;
-	char *c;
-	while (i < len)
+	while (shell->env[i])
+	{
+		if (ft_strncmp(env_cmd[1], shell->env[i], ft_strlen(env_cmd[1])) == 0)
+			p = i;
+		i++;
+	}
+	if (p > -1)
+	{
+		ft_set_env_tool(env_cmd, shell, p, tmp);
+		return ;
+	}
+	ft_set_env_next(shell, env_cmd, i);
+}
+
+void			ft_realloc_env(t_minishell *shell, int len)
+{
+	int			i;
+	int			ok;
+	char		*c;
+
+	i = -1;
+	ok = 0;
+	while (++i < len)
 	{
 		c = ft_strdup(shell->env[i]);
 		ft_strdel(&shell->env[i]);
 		shell->env[i] = ft_strdup(c);
 		ft_strdel(&c);
-		i++;
 	}
 	ft_strdel(&shell->env[i]);
 	ok = 1;
@@ -111,15 +130,13 @@ void		ft_realloc_env(t_minishell *shell, int len)
 		i++;
 	}
 	shell->env[i - 1] = NULL;
-	return;
+	return ;
 }
 
-void		ft_unset_env(char **env, t_minishell *shell)
+void			ft_unset_env(t_minishell *shell)
 {
 	int i;
-	(void)env;
 	int p;
-	int o = 0;
 
 	p = 0;
 	i = 0;
@@ -137,7 +154,7 @@ void		ft_unset_env(char **env, t_minishell *shell)
 				free(shell->tab);
 			}
 			ft_realloc_env(shell, i);
-			return;
+			return ;
 		}
 		i++;
 	}

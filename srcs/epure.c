@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 15:00:01 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/22 15:00:41 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/26 12:27:22 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ char		*ft_epure(char *str)
 	int j;
 
 	if (!str)
-		return(0);
+		return (0);
 	i = -1;
 	j = 0;
 	while (str[++i])
@@ -28,7 +28,7 @@ char		*ft_epure(char *str)
 		{
 			str[j] = str[i];
 			j++;
-			if (str[i + 1] ==  ' ' || str[i + 1] == '\t')
+			if (str[i + 1] == ' ' || str[i + 1] == '\t')
 			{
 				str[j] = ' ';
 				j++;
@@ -43,12 +43,12 @@ char		*ft_epure(char *str)
 
 char		*ft_epure_quote(char *str)
 {
-	int i;
-	int ok;
-	int ok2;
-	ok2 = 0;
+	int		i;
+	int		ok;
 	char	*result;
-	int j  = 0;
+	int		j;
+
+	j = 0;
 	ok = 0;
 	i = 0;
 	if (str[i] == ' ')
