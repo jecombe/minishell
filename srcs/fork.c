@@ -6,22 +6,22 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 14:20:22 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/24 13:13:08 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/26 12:33:36 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void		ft_fork(t_minishell *shell)
+void			ft_fork(t_minishell *shell)
 {
-	pid_t pid_child;
-	const char *file;
-	int i;
-	int status;
-	int o;
+	pid_t		pid_child;
+	const char	*file;
+	int			i;
+	int			status;
+	int			o;
 
-	i  = 0;
+	i = 0;
 	pid_child = fork();
 	if (pid_child == -1)
 		exit(EXIT_FAILURE);
@@ -41,27 +41,26 @@ void		ft_fork(t_minishell *shell)
 		wait(&status);
 }
 
-void		cmd_exec(char *exec, char **input, char **env)
+void			cmd_exec(char *exec, char **input, char **env)
 {
-	pid_t pid;
+	pid_t		pid;
+
 	pid = fork();
 	if (pid > 0)
-	wait(0);
+		wait(0);
 	else
-	execve(exec, input, env);
+		execve(exec, input, env);
 }
 
-void		ft_direct(char **cmd, char **env, t_minishell *shell, char *buff)
+void			ft_direct(char **cmd, char **env, t_minishell *shell, \
+		char *buff)
 {
 	(void)cmd;
 	(void)env;
 	(void)shell;
 	(void)buff;
-	int y = 0;
-	int i = 0;
-	int o = 0;
 	if (access(cmd[0], F_OK) == 0)
-	cmd_exec(cmd[0], cmd, env);
+		cmd_exec(cmd[0], cmd, env);
 	else
 		ft_print_error(shell->cmd[0], ": No such file or directory !");
 }
