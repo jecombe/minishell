@@ -6,13 +6,12 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 13:31:55 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/22 17:40:43 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 13:32:25 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 int		ft_match_before_char(char *cmd, char c, char *env)
 {
@@ -30,5 +29,5 @@ int		ft_match_before_char(char *cmd, char c, char *env)
 		return (0);
 	if (cmd[y + 1] != '\0')
 		return (0);
-	return(1);
+	return (1);
 }

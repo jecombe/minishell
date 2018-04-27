@@ -6,32 +6,31 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/19 14:28:43 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/19 14:53:06 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 13:33:42 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-
 static void		ft_bold(int nb)
 {
 	if (nb == 8)
-			ft_putstr(BLACKB);
-		if (nb == 9)
-			ft_putstr(REDB);
-		if (nb == 10)
-			ft_putstr(GREENB);
-		if (nb == 11)
-			ft_putstr(YELLOWB);
-		if (nb == 12)
-			ft_putstr(BLUEB);
-		if (nb == 13)
-			ft_putstr(PURPLEB);
-		if (nb == 14)
-			ft_putstr(CYANB);
-		if (nb == 15)
-			ft_putstr(GREYB);
+		ft_putstr(BLACKB);
+	if (nb == 9)
+		ft_putstr(REDB);
+	if (nb == 10)
+		ft_putstr(GREENB);
+	if (nb == 11)
+		ft_putstr(YELLOWB);
+	if (nb == 12)
+		ft_putstr(BLUEB);
+	if (nb == 13)
+		ft_putstr(PURPLEB);
+	if (nb == 14)
+		ft_putstr(CYANB);
+	if (nb == 15)
+		ft_putstr(GREYB);
 }
 
 void			ft_putstr_color(char const *s, int nb)
