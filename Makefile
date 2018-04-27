@@ -29,7 +29,9 @@ FILES = main.c \
 		str_to_tab.c \
 		quote.c \
 		epure.c \
-		ft_free.c
+		ft_free.c \
+		pwd.c \
+		tools2.c
 
 END=\x1b[0m
 BOLD=\x1b[1m

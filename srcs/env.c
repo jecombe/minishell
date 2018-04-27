@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 13:26:51 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/26 12:24:59 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 13:24:44 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,19 +40,6 @@ void			env_now(t_minishell *shell, char **envv)
 		j++;
 	}
 	shell->env[j] = NULL;
-}
-
-void			ft_set_env_tool(char **env_cmd, t_minishell *shell, int p, \
-		char *tmp)
-{
-	if (!env_cmd[2])
-		env_cmd[2] = ft_strdup("");
-	else
-		tmp = ft_strdup(env_cmd[2]);
-	free(shell->env[p]);
-	shell->env[p] = ft_strdup(env_cmd[1]);
-	ft_strcat(shell->env[p], "=");
-	ft_strcat(shell->env[p], env_cmd[2]);
 }
 
 void			ft_set_env_next(t_minishell *shell, char **env_cmd, int i)

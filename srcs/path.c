@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 14:41:54 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/22 14:52:39 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 11:58:30 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,11 +41,11 @@ int			ft_check_path(char **env, int value)
 char		**path(t_minishell *shell, char **env)
 {
 	int i;
-	int checkPath;
+	int checkpath;
 	int compare;
 
-	checkPath = ft_check_path(env, 0);
-	if (checkPath == 1)
+	checkpath = ft_check_path(env, 0);
+	if (checkpath == 1)
 	{
 		compare = 0;
 		i = 0;
@@ -65,9 +65,10 @@ char		*split_path(t_minishell *shell)
 {
 	int i;
 	int o;
-	o = 0;
 	int j;
-	j=  0;
+
+	o = 0;
+	j = 0;
 	i = 5;
 	while (shell->tab[0][i] != '\0')
 	{

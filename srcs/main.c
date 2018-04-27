@@ -6,21 +6,22 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/23 15:47:55 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 11:56:23 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void		ft_user(char **env)
+void			ft_user(char **env)
 {
-	int i = 0;
+	int i;
 	int o;
 	int u;
 
 	o = 0;
 	u = 0;
+	i = 0;
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], "USER=", 5) == 0)
@@ -34,22 +35,20 @@ void		ft_user(char **env)
 				u++;
 			}
 			user[o] = '\0';
-			break;
+			break ;
 		}
 		i++;
 	}
 }
 
-int main(int argc, char **argv, char **env)
+int				main(int argc, char **argv, char **env)
 {
-	int ret;
 	t_minishell shell;
-	int i;
-	int o;
+	int			i;
+	int			o;
 
 	i = 0;
 	o = 1;
-
 	init_shell();
 	(void)argc;
 	(void)argv;
@@ -70,4 +69,3 @@ int main(int argc, char **argv, char **env)
 	}
 	return (0);
 }
-

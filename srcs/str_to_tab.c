@@ -6,14 +6,14 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 14:47:24 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/22 14:55:45 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 13:14:19 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int			ft_count(char *str, int value)
+static int	ft_count(char *str, int value)
 {
 	int i;
 	int co;
@@ -33,7 +33,7 @@ static int			ft_count(char *str, int value)
 	return (co);
 }
 
-static int			ft_count_char(char *str)
+static int	ft_count_char(char *str)
 {
 	int co;
 
@@ -44,27 +44,19 @@ static int			ft_count_char(char *str)
 	return (co);
 }
 
-char			**ft_str_cmd_quote(char *cmd, t_minishell *shell)
+char		**ft_str_cmd_quote(char *cmd, t_minishell *shell)
 {
 	(void)shell;
 	return (ft_strsplit(cmd, '"'));
 }
 
-
-char		**ft_str_cmd(char *cmd, t_minishell *shell)
-
+char		**ft_str_cmd_next(char *cmd, t_minishell *shell, int i, int co_char)
 {
-	int i;
 	int a;
 	int b;
-	int co_word;
-	int co_char;
 
-	i = 0;
+	b = 0;
 	a = 0;
-	b =  0;
-	co_word = ft_count(cmd, 1);
-	shell->cmd = malloc(sizeof(char *) * (co_word) + 1);
 	while (cmd[i] && cmd[i] != '\n')
 	{
 		if (cmd[i] == ' ' || cmd[i] == '\n')
@@ -78,12 +70,22 @@ char		**ft_str_cmd(char *cmd, t_minishell *shell)
 		co_char = ft_count_char(cmd + i);
 		shell->cmd[a] = (char *)malloc(sizeof(char) * (co_char) + 1);
 		while (cmd[i] != ' ' && cmd[i] != '\n' && cmd[i] != '\0')
-		{
-				shell->cmd[a][b++] = cmd[i++];
-		}
+			shell->cmd[a][b++] = cmd[i++];
 		shell->cmd[a][b] = '\0';
 	}
-		shell->cmd[a + 1] = NULL;
+	shell->cmd[a + 1] = NULL;
 	return (shell->cmd);
 }
 
+char		**ft_str_cmd(char *cmd, t_minishell *shell)
+{
+	int i;
+	int co_word;
+	int co_char;
+
+	i = 0;
+	co_word = ft_count(cmd, 1);
+	shell->cmd = malloc(sizeof(char *) * (co_word) + 1);
+	shell->cmd = ft_str_cmd_next(cmd, shell, i, co_char);
+	return (shell->cmd);
+}

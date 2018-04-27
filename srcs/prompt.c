@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:36 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/23 14:05:17 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 12:00:35 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,7 +45,8 @@ void		aff_prompt_next2(char *cmd, t_minishell *shell, int t, char *buff)
 	}
 	shell->cmd = ft_str_cmd(cmd, shell);
 }
-int		aff_prompt_next(char *buff, char *cmd, t_minishell *shell)
+
+int			aff_prompt_next(char *buff, char *cmd, t_minishell *shell)
 {
 	int co;
 	int prime;
@@ -94,7 +95,7 @@ void		aff_prompt(t_minishell *shell)
 		if (ft_check_space(buff) == 0)
 			return ;
 		if (aff_prompt_next(buff, cmd, shell) == 0)
-			return;
+			return ;
 		if (ft_builtin(cmd, shell) == 1)
 			return ;
 		ft_fork(shell);
