@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 12:57:55 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 13:15:37 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 14:09:52 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,7 @@ void		ft_print_prompt(void)
 {
 	ft_putstr_color("[", 10);
 	ft_putstr(STOP);
-	ft_putstr_color(user, 14);
+	ft_putstr_color(g_user, 14);
 	ft_putstr(STOP);
 	ft_putstr_color("]", 10);
 	ft_putstr(STOP);

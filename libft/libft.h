@@ -6,7 +6,7 @@
 /*   By: jecombe <jecombe@student.le-101.f>         +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/15 16:00:23 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/23 15:40:47 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 14:12:02 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,25 +25,25 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-#define BLACKB    "\033[1;30m"
-#define REDB      "\033[1;31m"
-#define GREENB    "\033[1;32m"
-#define YELLOWB   "\033[1;33m"
-#define BLUEB     "\033[1;34m"
-#define PURPLEB   "\033[1;35m"
-#define CYANB     "\033[1;36m"
-#define GREYB     "\033[1;37m"
+# define BLACKB    "\033[1;30m"
+# define REDB      "\033[1;31m"
+# define GREENB    "\033[1;32m"
+# define YELLOWB   "\033[1;33m"
+# define BLUEB     "\033[1;34m"
+# define PURPLEB   "\033[1;35m"
+# define CYANB     "\033[1;36m"
+# define GREYB     "\033[1;37m"
 
-#define BLACK    "\033[0;30m"
-#define RED      "\033[0;31m"
-#define GREEN    "\033[0;32m"
-#define YELLOW   "\033[0;33m"
-#define BLUE     "\033[0;34m"
-#define PURPLE   "\033[0;35m"
-#define CYAN     "\033[0;36m"
-#define GREY     "\033[0;37m"
+# define BLACK    "\033[0;30m"
+# define RED      "\033[0;31m"
+# define GREEN    "\033[0;32m"
+# define YELLOW   "\033[0;33m"
+# define BLUE     "\033[0;34m"
+# define PURPLE   "\033[0;35m"
+# define CYAN     "\033[0;36m"
+# define GREY     "\033[0;37m"
 
-#define STOP "\033[0;m"
+# define STOP "\033[0;m"
 
 int					ft_toupper(int c);
 int					ft_tolower(int c);

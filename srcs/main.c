@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 11:56:23 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 14:16:15 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,14 +27,14 @@ void			ft_user(char **env)
 		if (ft_strncmp(env[i], "USER=", 5) == 0)
 		{
 			u = 5;
-			user = malloc(sizeof(char *) * ft_strlen(env[i]) - 4);
+			g_user = malloc(sizeof(char *) * ft_strlen(env[i]) - 4);
 			while (env[i][u])
 			{
-				user[o] = env[i][u];
+				g_user[o] = env[i][u];
 				o++;
 				u++;
 			}
-			user[o] = '\0';
+			g_user[o] = '\0';
 			break ;
 		}
 		i++;

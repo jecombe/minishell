@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:36 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 12:00:35 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 14:49:40 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,6 +74,19 @@ int			aff_prompt_next(char *buff, char *cmd, t_minishell *shell)
 	return (1);
 }
 
+void		ft_ret_o(int ret, char *cmd, char *buff, t_minishell *shell)
+{
+	if (ret == 0)
+	{
+		ft_putchar('\n');
+		ft_strdel(&cmd);
+		ft_strdel(&buff);
+		ft_free_tab(shell->env);
+		ft_free_tab(shell->tab);
+		exit(0);
+	}
+}
+
 void		aff_prompt(t_minishell *shell)
 {
 	char	*cmd;
@@ -87,11 +100,7 @@ void		aff_prompt(t_minishell *shell)
 	{
 		if (ft_strchr(buff, (int)'/') != NULL)
 			ft_exec_slash(cmd, buff, shell);
-		if (ret == 0)
-		{
-			ft_putchar('\n');
-			exit(0);
-		}
+		ft_ret_o(ret, cmd, buff, shell);
 		if (ft_check_space(buff) == 0)
 			return ;
 		if (aff_prompt_next(buff, cmd, shell) == 0)
@@ -100,4 +109,5 @@ void		aff_prompt(t_minishell *shell)
 			return ;
 		ft_fork(shell);
 	}
+	ft_free_tool(buff, cmd, shell);
 }
