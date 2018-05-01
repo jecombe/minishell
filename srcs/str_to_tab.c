@@ -6,14 +6,14 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 14:47:24 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 13:14:19 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 15:15:44 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	ft_count(char *str, int value)
+static int		ft_count(char *str, int value)
 {
 	int i;
 	int co;
@@ -33,7 +33,7 @@ static int	ft_count(char *str, int value)
 	return (co);
 }
 
-static int	ft_count_char(char *str)
+static int		ft_count_char(char *str)
 {
 	int co;
 
@@ -44,13 +44,14 @@ static int	ft_count_char(char *str)
 	return (co);
 }
 
-char		**ft_str_cmd_quote(char *cmd, t_minishell *shell)
+char			**ft_str_cmd_quote(char *cmd, t_minishell *shell)
 {
 	(void)shell;
 	return (ft_strsplit(cmd, '"'));
 }
 
-char		**ft_str_cmd_next(char *cmd, t_minishell *shell, int i, int co_char)
+static char		**ft_str_cmd_next(char *cmd, t_minishell *shell, int i, \
+		int co_char)
 {
 	int a;
 	int b;
@@ -77,7 +78,7 @@ char		**ft_str_cmd_next(char *cmd, t_minishell *shell, int i, int co_char)
 	return (shell->cmd);
 }
 
-char		**ft_str_cmd(char *cmd, t_minishell *shell)
+char			**ft_str_cmd(char *cmd, t_minishell *shell)
 {
 	int i;
 	int co_word;

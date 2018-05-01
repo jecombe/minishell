@@ -6,20 +6,20 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/26 10:39:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 13:19:31 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/29 16:30:36 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static char		*ft_home(char **env)
+static char			*ft_home(char **env)
 {
-	char		*result;
-	int			i;
-	int			a;
-	int			b;
-	int			ok;
+	char			*result;
+	int				i;
+	int				a;
+	int				b;
+	int				ok;
 
 	i = 0;
 	a = 5;
@@ -41,10 +41,10 @@ static char		*ft_home(char **env)
 	return (result);
 }
 
-void			ft_transfer(char *env, char *str)
+void				ft_transfer(char *env, char *str)
 {
-	int e;
-	int y;
+	int				e;
+	int				y;
 
 	e = 0;
 	y = 4;
@@ -57,9 +57,10 @@ void			ft_transfer(char *env, char *str)
 	env[y] = '\0';
 }
 
-void			ft_cd_next(char *str, char **env, int ok, char *home)
+static void			ft_cd_next(char *str, char **env, int ok, char *home)
 {
-	char		cwd[256];
+	char			cwd[256];
+	int i = 0;
 
 	if (chdir(str) == -1)
 	{
@@ -67,7 +68,18 @@ void			ft_cd_next(char *str, char **env, int ok, char *home)
 			ft_print_error(str, ": No such file or directory !");
 	}
 	else
-	{
+	{	/*while (env[i])
+		{
+			if (ft_match_before_char("PWD", '=', env[i]) == 0)
+			{
+				printf("OKOK\n");
+				chdir(str);
+				ft_strdel(&home);
+				return ;
+			}
+			i++;
+		}*/
+
 		if (getcwd(cwd, sizeof(cwd)) == NULL)
 			ft_print_error(NULL, "Can't find the directory !");
 		else
@@ -76,11 +88,11 @@ void			ft_cd_next(char *str, char **env, int ok, char *home)
 	ft_strdel(&home);
 }
 
-void			ft_cd(char *str, char **env, t_minishell *shell)
+void				ft_cd(char *str, char **env, t_minishell *shell)
 {
-	char		*home;
-	char		*r;
-	int			ok;
+	char			*home;
+	char			*r;
+	int				ok;
 
 	(void)str;
 	(void)shell;
@@ -90,7 +102,7 @@ void			ft_cd(char *str, char **env, t_minishell *shell)
 	{
 		ft_chang_pwd(env, home);
 		chdir(home);
-		ft_strdel(&home);
+		//ft_strdel(&home);
 		return ;
 	}
 	if (str[0] == '-')
@@ -99,7 +111,7 @@ void			ft_cd(char *str, char **env, t_minishell *shell)
 		ft_putendl(r);
 		chdir(r);
 		ft_chang_pwd(env, r);
-		free(r);
+		//ft_strdel(&r);
 		ok = 1;
 	}
 	ft_cd_next(str, env, ok, home);

@@ -47,7 +47,7 @@ void		set_old_pwd(char **env, char *old, int i)
 		a++;
 	}
 	env[i][b] = '\0';
-	free(old);
+	//free(old);
 }
 
 void		ft_chang_pwd(char **env, char *str)

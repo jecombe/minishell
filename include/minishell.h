@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/26 18:12:05 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 14:11:14 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/29 15:24:35 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,8 @@
 
 int				g_p;
 char			*g_user;
+int				g_error;
+int				g_path;
 
 typedef struct	s_minishell
 {
@@ -39,7 +41,7 @@ void			aff_prompt(t_minishell *shell);
 int				ft_builtin(char *cmd, t_minishell *shell);
 char			**ft_str_cmd(char *cmd, t_minishell *shell);
 void			sigint(int sig);
-void			ft_fork(t_minishell *shell);
+void			ft_fork(t_minishell *shell, char *cmd, char *buff);
 void			ft_putstr_color(const char *str, int nb);
 char			*split_path(t_minishell *shell);
 void			ft_direct(char **cmd, char **env, t_minishell *shell, \
@@ -60,7 +62,7 @@ char			*ft_epure_quote(char *str);
 char			*ft_epure(char *str);
 int				ft_check_space(char *buff);
 void			ft_free(char **tab, char **env, char **cmd);
-void			cmd_exec(char *exec, char **input, char **env);
+void			cmd_exec(t_minishell *shell);
 void			set_pwd(char **env, char *str, int i);
 void			set_old_pwd(char **env, char *old, int i);
 void			ft_transfer(char *env, char *str);

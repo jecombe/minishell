@@ -6,14 +6,14 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 13:26:51 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 14:50:11 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/29 12:21:26 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void			env_now(t_minishell *shell, char **envv)
+void				env_now(t_minishell *shell, char **envv)
 {
 	int i;
 	int j;
@@ -42,41 +42,62 @@ void			env_now(t_minishell *shell, char **envv)
 	shell->env[j] = NULL;
 }
 
-void			ft_set_env_next(t_minishell *shell, char **env_cmd, int i)
+static void			ft_set_env_next(t_minishell *shell, char **env_cmd, int i)
 {
 	int j;
+	char **tmp;
+	char *tt;
 
 	j = 0;
-	shell->env[i] = env_cmd[1];
-	ft_strcat(shell->env[i], "=");
+	shell->env[i] = ft_strnew(4096);
+	ft_strcpy(shell->env[i], env_cmd[1]);
+	shell->env[i] = ft_strcat(shell->env[i], "=");
 	if (env_cmd[2])
 	{
 		ft_strcat(shell->env[i], env_cmd[2]);
 		shell->env[i + 1] = NULL;
-		if (ft_strncmp("PATH=", env_cmd[1], 5) == 0)
+		if (ft_strcmp("PATH", env_cmd[1]) == 0)
 		{
-			shell->tab = path(shell, env_cmd);
+			g_path = 0;
+			//ft_free_tab(shell->tab);
+			shell->tab = ft_strsplit(shell->cmd[2], ':');
+			while (shell->tab[j])
+			{
+				ft_strcat(shell->tab[j], "/");
+				j++;
+			}
+			return ;
+
+
+			/*shell->tab = path(shell, env_cmd);
 			shell->tab[0] = split_path(shell);
 			while (shell->tab[j])
 			{
 				if (ft_strcmp(shell->tab[j], "\n"))
 					ft_strcat(shell->tab[j], "/");
 				j++;
-			}
+			}*/
+			j = 0;
+
 		}
 	}
 }
 
-void			ft_set_env(char **env_cmd, t_minishell *shell)
+void				ft_set_env(char **env_cmd, t_minishell *shell)
 {
-	int			i;
-	int			p;
-	int			j;
-	char		*tmp;
+	int				i;
+	int				p;
+	int				j;
+	char			*tmp;
 
 	j = 0;
 	p = -1;
 	i = 0;
+	if (!shell->cmd[1])
+	{
+		ft_print_error(shell->cmd[0], ": Manques des arguments");
+		return ;
+	}
 	while (shell->env[i])
 	{
 		if (ft_strncmp(env_cmd[1], shell->env[i], ft_strlen(env_cmd[1])) == 0)
@@ -87,15 +108,21 @@ void			ft_set_env(char **env_cmd, t_minishell *shell)
 	{
 		ft_set_env_tool(env_cmd, shell, p, tmp);
 		return ;
-	}
+	}	
+
 	ft_set_env_next(shell, env_cmd, i);
+	/*while (shell->cmd[h])
+	{
+		printf("========> %s\n", shell->cmd[h]);
+		h++;
+	}*/
 }
 
-void			ft_realloc_env(t_minishell *shell, int len)
+void				ft_realloc_env(t_minishell *shell, int len)
 {
-	int			i;
-	int			ok;
-	char		*c;
+	int				i;
+	int				ok;
+	char			*c;
 
 	i = -1;
 	ok = 0;
@@ -108,7 +135,7 @@ void			ft_realloc_env(t_minishell *shell, int len)
 	}
 	ft_strdel(&shell->env[i]);
 	ok = 1;
-	i = i + 1;
+	i++;
 	while (shell->env[i])
 	{
 		c = ft_strdup(shell->env[i]);
@@ -120,25 +147,26 @@ void			ft_realloc_env(t_minishell *shell, int len)
 	return ;
 }
 
-void			ft_unset_env(t_minishell *shell)
+void				ft_unset_env(t_minishell *shell)
 {
-	int i;
-	int p;
+	int				i;
+	int				p;
 
 	p = 0;
 	i = 0;
+	if (!shell->cmd[1])
+	{
+		ft_print_error(shell->cmd[0], ": Manques des arguments");
+		return ;
+	}
 	while (shell->env[i] != NULL)
 	{
 		if (ft_match_before_char(shell->cmd[1], '=', shell->env[i]) == 1)
 		{
 			if (ft_strncmp("PATH=", shell->env[i], 5) == 0)
 			{
-				while (shell->tab[p])
-				{
-					ft_strdel(&shell->tab[p]);
-					p++;
-				}
-				free(shell->tab);
+				g_path = 1;
+			ft_free_tab(shell->tab);	
 			}
 			ft_realloc_env(shell, i);
 			return ;

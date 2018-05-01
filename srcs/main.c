@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 14:16:15 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/28 17:37:07 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,6 +66,12 @@ int				main(int argc, char **argv, char **env)
 	{
 		signal(SIGINT, sigint);
 		aff_prompt(&shell);
+		//ft_free_tab(shell.cmd);
+		/*if (g_ok == 1)
+		{
+			ft_free_tab(shell.cmd);
+			g_ok = 0;
+		}*/
 	}
 	return (0);
 }

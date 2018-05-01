@@ -6,14 +6,14 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 14:56:28 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 12:53:56 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 15:13:57 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int			ft_check_quote(char *buff)
+int				ft_check_quote(char *buff)
 {
 	int i;
 	int co;
@@ -29,7 +29,7 @@ int			ft_check_quote(char *buff)
 	return (co);
 }
 
-int			ft_check_after(char *str, int i, int ok)
+static int		ft_check_after(char *str, int i, int ok)
 {
 	if (str[i + 1] == '"')
 	{
@@ -40,7 +40,7 @@ int			ft_check_after(char *str, int i, int ok)
 	return (ok);
 }
 
-char		*ft_end_quote(char *result, int j)
+static char		*ft_end_quote(char *result, int j)
 {
 	if (result[j - 1] != '"')
 	{
@@ -51,7 +51,7 @@ char		*ft_end_quote(char *result, int j)
 	return (result);
 }
 
-char		*ft_ajout_quote_next(char *str, char *result, int ok)
+static char		*ft_ajout_quote_next(char *str, char *result, int ok)
 {
 	int i;
 	int j;
@@ -80,11 +80,11 @@ char		*ft_ajout_quote_next(char *str, char *result, int ok)
 	return (result);
 }
 
-char		*ft_ajout_quote(char *str)
+char			*ft_ajout_quote(char *str)
 {
-	int		i;
-	char	*result;
-	int		ok;
+	int			i;
+	char		*result;
+	int			ok;
 
 	i = 0;
 	ok = 0;
