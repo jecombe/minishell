@@ -67,6 +67,7 @@ int				main(int argc, char **argv, char **env)
 	while (1)
 	{
 		signal(SIGINT, sigint);
+
 		aff_prompt(&shell);
 		
 	}

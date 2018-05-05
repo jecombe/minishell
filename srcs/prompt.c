@@ -92,13 +92,12 @@ void		ft_ret_o(int ret, t_minishell *shell, char *cmd, char *buff)
 	}
 	if (ret == 0)
 	{
-		ft_putchar('\n');
 		ft_putchar('\r');
 		ft_strdel(&g_user);
 		ft_strdel(&buff);
 	ft_strdel(&cmd);
-	ft_free_tab(shell->env);
-		ft_free_tab(shell->tab);
+	//ft_free_tab(shell->env);
+		//ft_free_tab(shell->tab);
 		//ft_putchar('\r');
 
 		exit(0);
@@ -169,6 +168,23 @@ void		aff_prompt(t_minishell *shell)
 		ft_ret_o(ret, shell, cmd, buff);
 		if (ft_check_space(buff) == 0)
 		{
+			int i = 0;
+			while (buff[i] != '\n')
+			{
+				if (buff[i] > 32 && buff[i] < 127)
+				{
+					ft_putstr(YELLOW);
+					ft_putchar(buff[i]);
+					ft_putstr(STOP);
+					ft_print_error(NULL, ": Command not found !");
+					ft_strdel(&buff);
+					return ;
+
+
+				}
+				i++;
+
+			}
 			ft_strdel(&cmd);
 			ft_strdel(&buff);
 			return ;
