@@ -115,5 +115,5 @@ int					ft_match_before_char(char *cmd, char c, char *env);
 void				ft_putstr_color(char const *s, int nb);
 int					ft_is_prime(int nb);
 void				ft_free_tab(char **tab);
-void				ft_print_tab(char **tab);
+void				ft_print_tab(char **tab, int value);
 #endif

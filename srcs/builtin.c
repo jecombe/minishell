@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/29 15:07:30 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/04 13:56:35 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,11 +64,13 @@ static int		ft_buitlin_next(t_minishell *shell)
 	else if (ft_strcmp("unsetenv", shell->cmd[0]) == 0)
 	{
 		ft_unset_env(shell);
+		
 		return (1);
 	}
 	else if (ft_strcmp("env", shell->cmd[0]) == 0)
 	{
-		ft_print_tab(shell->env);
+		int i = 0;
+			ft_print_tab(shell->env, 1);
 		return (1);
 	}
 	else
@@ -95,7 +97,7 @@ int				ft_builtin(char *cmd, t_minishell *shell)
 	{
 		ft_cd(shell->cmd[1], shell->env, shell);
 		//ft_strdel(&cmd);
-		//ft_free_tab(shell->cmd);
+		ft_free_tab(shell->cmd);
 		return (1);
 	}
 	if (ft_buitlin_next(shell) == 0)

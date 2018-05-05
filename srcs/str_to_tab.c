@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 14:47:24 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 15:15:44 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/04 13:55:22 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,7 +47,7 @@ static int		ft_count_char(char *str)
 char			**ft_str_cmd_quote(char *cmd, t_minishell *shell)
 {
 	(void)shell;
-	return (ft_strsplit(cmd, '"'));
+	return (ft_split_quote(cmd));
 }
 
 static char		**ft_str_cmd_next(char *cmd, t_minishell *shell, int i, \

@@ -6,12 +6,40 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 13:26:51 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/29 12:21:26 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/04 18:35:49 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int		my_getenv(char *name, char **env)
+{
+	int		i;
+	char		*search;
+	int		name_len;
+
+	name_len = ft_strlen(name) + 1;
+	search = (char*)malloc(sizeof(char) * name_len);
+	if (search != NULL)
+	{
+		ft_strcpy(search, name);
+		ft_strcat(search, "=");
+		i = 0;
+		while (env[i] != NULL)
+		{
+			if (ft_strncmp(env[i], search, name_len) == 0)
+			{
+				free(search);
+				return (i);
+			}
+			i = i + 1;
+		}
+		free(search);
+	}
+	return (-1);
+}
+
 
 void				env_now(t_minishell *shell, char **envv)
 {
@@ -34,53 +62,76 @@ void				env_now(t_minishell *shell, char **envv)
 	shell->env = malloc(sizeof(char *) * result);
 	while (envv[i] != NULL)
 	{
-		shell->env[j] = malloc(sizeof(char) * ft_strlen(envv[i]) + 1);
-		ft_strcpy(shell->env[j], envv[i]);
+		//shell->env[j] = malloc(sizeof(char) * ft_strlen(envv[i]) + 1);
+		shell->env[j] = ft_strdup(envv[i]);
+		//ft_strcpy(shell->env[j], envv[i]);
 		i++;
 		j++;
 	}
 	shell->env[j] = NULL;
 }
-
-static void			ft_set_env_next(t_minishell *shell, char **env_cmd, int i)
+char		**malloc_from_arr(char *str, char **arr)
 {
-	int j;
-	char **tmp;
-	char *tt;
+	int		i;
+	char		**new_arr;
 
-	j = 0;
-	shell->env[i] = ft_strnew(4096);
-	ft_strcpy(shell->env[i], env_cmd[1]);
-	shell->env[i] = ft_strcat(shell->env[i], "=");
-	if (env_cmd[2])
+	i = 0;
+	while (arr[i] != NULL)
+		i = i + 1;
+	new_arr = (char**)malloc(sizeof(char*) * (i + 2));
+	if (new_arr == NULL)
+		return (arr);
+	i = 0;
+	while (arr[i] != NULL)
 	{
-		ft_strcat(shell->env[i], env_cmd[2]);
-		shell->env[i + 1] = NULL;
-		if (ft_strcmp("PATH", env_cmd[1]) == 0)
+		new_arr[i] = arr[i];
+		i = i + 1;
+	}
+	free(arr);
+	new_arr[i] = str;
+	new_arr[i + 1] = NULL;
+	return (new_arr);
+}
+
+char			**ft_set_env_next(t_minishell *shell, char *str)
+{
+	char *result;
+	int len;
+	int i = 0;
+
+	len = ft_strlen(shell->cmd[1]) + ft_strlen(str) + 2;
+	result = (char *)malloc(sizeof(char) * len);
+	ft_strcpy(result, shell->cmd[1]);
+	ft_strcat(result,"=");
+	ft_strcat(result, str);
+	if (ft_strcmp("PATH", shell->cmd[1]) == 0)
+	{
+		if (ft_verif3(shell->cmd[2]) >= 0 && g_ess == 0)
 		{
-			g_path = 0;
-			//ft_free_tab(shell->tab);
-			shell->tab = ft_strsplit(shell->cmd[2], ':');
-			while (shell->tab[j])
+			g_ess++;
+			shell->tab = ft_split(shell->cmd[2]);
+			while (shell->tab[i])
 			{
-				ft_strcat(shell->tab[j], "/");
-				j++;
+				ft_strcat(shell->tab[i], "/");
+				i++;
 			}
-			return ;
-
-
-			/*shell->tab = path(shell, env_cmd);
-			shell->tab[0] = split_path(shell);
-			while (shell->tab[j])
-			{
-				if (ft_strcmp(shell->tab[j], "\n"))
-					ft_strcat(shell->tab[j], "/");
-				j++;
-			}*/
-			j = 0;
 
 		}
 	}
+	char		**new_arr;
+
+	if (shell->env == NULL)
+	{
+		new_arr = (char**)malloc(sizeof(char*) * 2);
+		if (new_arr == NULL)
+			return (shell->env);
+		new_arr[0] = result;
+		new_arr[1] = NULL;
+	}
+	else
+		return (malloc_from_arr(result, shell->env));
+	return (new_arr);
+
 }
 
 void				ft_set_env(char **env_cmd, t_minishell *shell)
@@ -89,33 +140,44 @@ void				ft_set_env(char **env_cmd, t_minishell *shell)
 	int				p;
 	int				j;
 	char			*tmp;
+	int g = 0;
 
 	j = 0;
 	p = -1;
 	i = 0;
-	if (!shell->cmd[1])
-	{
-		ft_print_error(shell->cmd[0], ": Manques des arguments");
-		return ;
-	}
-	while (shell->env[i])
-	{
-		if (ft_strncmp(env_cmd[1], shell->env[i], ft_strlen(env_cmd[1])) == 0)
-			p = i;
-		i++;
-	}
-	if (p > -1)
-	{
-		ft_set_env_tool(env_cmd, shell, p, tmp);
-		return ;
-	}	
 
-	ft_set_env_next(shell, env_cmd, i);
-	/*while (shell->cmd[h])
+
+	if ((i = my_getenv(env_cmd[1], shell->env)) >= 0)
 	{
-		printf("========> %s\n", shell->cmd[h]);
-		h++;
-	}*/
+		p = i;
+		if (!shell->cmd[2])
+		{
+			shell->env = ft_set_env_tool(env_cmd, shell, p, "");
+
+			return;
+		}
+		else
+		{
+			shell->env = ft_set_env_tool(env_cmd, shell, p, shell->cmd[2]);
+			return ;
+		}
+	}
+	else
+	{
+		if (!shell->cmd[2])
+		{
+			shell->env = ft_set_env_next(shell, "");
+
+			return ;
+		}
+		else
+		{
+			shell->env = ft_set_env_next(shell, shell->cmd[2]);
+
+			return ;
+		}
+
+	}
 }
 
 void				ft_realloc_env(t_minishell *shell, int len)
@@ -154,19 +216,18 @@ void				ft_unset_env(t_minishell *shell)
 
 	p = 0;
 	i = 0;
-	if (!shell->cmd[1])
-	{
-		ft_print_error(shell->cmd[0], ": Manques des arguments");
-		return ;
-	}
 	while (shell->env[i] != NULL)
 	{
 		if (ft_match_before_char(shell->cmd[1], '=', shell->env[i]) == 1)
 		{
 			if (ft_strncmp("PATH=", shell->env[i], 5) == 0)
 			{
-				g_path = 1;
-			ft_free_tab(shell->tab);	
+				//g_path = 1;
+				if (g_ess > 0)
+				{
+					ft_free_tab(shell->tab);
+					g_ess  = 0;
+				}
 			}
 			ft_realloc_env(shell, i);
 			return ;

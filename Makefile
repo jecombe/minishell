@@ -31,7 +31,10 @@ FILES = main.c \
 		epure.c \
 		ft_free.c \
 		pwd.c \
-		tools2.c
+		tools2.c\
+		ft_split.c\
+		ft_strsplit2.c \
+		ft_split_quote.c
 
 END=\x1b[0m
 BOLD=\x1b[1m

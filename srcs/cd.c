@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/26 10:39:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/29 16:30:36 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/03 15:20:54 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,7 +79,6 @@ static void			ft_cd_next(char *str, char **env, int ok, char *home)
 			}
 			i++;
 		}*/
-
 		if (getcwd(cwd, sizeof(cwd)) == NULL)
 			ft_print_error(NULL, "Can't find the directory !");
 		else
@@ -93,8 +92,12 @@ void				ft_cd(char *str, char **env, t_minishell *shell)
 	char			*home;
 	char			*r;
 	int				ok;
+	int				i;
+	int				y;
 
 	(void)str;
+	i = 0;
+	y = 0;
 	(void)shell;
 	home = ft_home(env);
 	ok = 0;
@@ -107,12 +110,34 @@ void				ft_cd(char *str, char **env, t_minishell *shell)
 	}
 	if (str[0] == '-')
 	{
-		r = ft_insert_old(env);
-		ft_putendl(r);
-		chdir(r);
+		while (shell->env[i])
+		{
+			if (ft_strncmp("OLDPWD=",shell->env[i], 7) == 0)
+			{
+				y = 7;
+				while (shell->env[i][y])
+					y++;
+				if (y == 7)
+				{
+					ft_print_error("cd", ": OLDPWD not set !");
+					return ;
+				}
+				r = ft_insert_old(env);
+		//ft_putendl(r);
+		if (chdir(r) == -1)
+			ft_print_error(r, ": No such file or directory !");
+		else
+			ft_putendl(r);
 		ft_chang_pwd(env, r);
-		//ft_strdel(&r);
 		ok = 1;
+	ft_cd_next(str, env, ok, home);
+	return ;
+			}
+			i++;
+		}
+		ft_print_error("cd", ": OLDPWD not set !");
+		return ;
+
 	}
 	ft_cd_next(str, env, ok, home);
 }

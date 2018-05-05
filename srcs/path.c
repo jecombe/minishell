@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 14:41:54 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 15:16:32 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/03 12:49:46 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,6 @@ int			ft_check_path(char **env, int value)
 char		**path(t_minishell *shell, char **env)
 {
 	int i;
-	printf("PATH\n");
 	int checkpath;
 	int compare;
 

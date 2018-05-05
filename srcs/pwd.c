@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/27 13:16:28 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 13:23:27 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/03 15:00:17 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,24 +47,37 @@ void		set_old_pwd(char **env, char *old, int i)
 		a++;
 	}
 	env[i][b] = '\0';
-	//free(old);
+	free(old);
 }
 
 void		ft_chang_pwd(char **env, char *str)
 {
 	int		i;
 	char	*old;
+	int ok = 0;
 
 	i = 0;
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], "PWD=", 4) == 0)
 		{
+			ok = 1;
 			old = ft_strdup(env[i]);
 			set_pwd(env, str, i);
 		}
+		i++;
+	}
+	i = 0;
+	while (env[i])
+	{
 		if (ft_strncmp(env[i], "OLDPWD=", 7) == 0)
+		{
+			if (ok == 0)
+			{
+				old = ft_strdup("");
+			}
 			set_old_pwd(env, old, i);
+		}
 		i++;
 	}
 }

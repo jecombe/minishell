@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/26 18:12:05 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/29 15:24:35 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/04 13:47:14 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,9 @@
 int				g_p;
 char			*g_user;
 int				g_error;
-int				g_path;
+//int				g_path;
+int				g_test;
+int				g_ess;
 
 typedef struct	s_minishell
 {
@@ -35,7 +37,7 @@ typedef struct	s_minishell
 	char **cmd;
 	char **env;
 }				t_minishell;
-
+int		my_getenv(char *name, char **env);
 char			**path(t_minishell *shell, char **env);
 void			aff_prompt(t_minishell *shell);
 int				ft_builtin(char *cmd, t_minishell *shell);
@@ -62,14 +64,17 @@ char			*ft_epure_quote(char *str);
 char			*ft_epure(char *str);
 int				ft_check_space(char *buff);
 void			ft_free(char **tab, char **env, char **cmd);
-void			cmd_exec(t_minishell *shell);
+void			cmd_exec(t_minishell *shell, int value);
 void			set_pwd(char **env, char *str, int i);
 void			set_old_pwd(char **env, char *old, int i);
 void			ft_transfer(char *env, char *str);
 char			*ft_insert_old(char **env);
 void			ft_chang_pwd(char **env, char *str);
-void			ft_set_env_tool(char **env_cmd, t_minishell *shell, int p, \
+char			**ft_set_env_tool(char **env_cmd, t_minishell *shell, int p, \
 		char *tmp);
 void			ft_free_tool(char *buff, char *cmd, t_minishell *shell);
-
+char 		**ft_split(char *str);
+char	**ft_strsplit2(char *str);
+char **ft_split_quote(char *str);
+int 		ft_verif3(char *str);
 #endif

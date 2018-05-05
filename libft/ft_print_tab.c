@@ -13,13 +13,18 @@
 
 #include "libft.h"
 
-void		ft_print_tab(char **tab)
+void		ft_print_tab(char **tab, int value)
 {
 	int i;
 
 	i = 0;
 	while (tab[i])
 	{
+		if (value == 1)
+		{
+			ft_putstr_color("::", 6);
+			ft_putstr(STOP);
+		}
 		ft_putendl(tab[i]);
 		i++;
 	}

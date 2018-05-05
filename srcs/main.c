@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/28 17:37:07 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/04 17:59:21 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,11 +49,13 @@ int				main(int argc, char **argv, char **env)
 
 	i = 0;
 	o = 1;
+	signal(SIGINT, sigint);
 	init_shell();
 	(void)argc;
 	(void)argv;
 	env_now(&shell, env);
 	ft_user(shell.env);
+	g_ess++;
 	shell.tab = path(&shell, env);
 	shell.tab[0] = split_path(&shell);
 	while (shell.tab[o])
@@ -66,12 +68,7 @@ int				main(int argc, char **argv, char **env)
 	{
 		signal(SIGINT, sigint);
 		aff_prompt(&shell);
-		//ft_free_tab(shell.cmd);
-		/*if (g_ok == 1)
-		{
-			ft_free_tab(shell.cmd);
-			g_ok = 0;
-		}*/
+		
 	}
 	return (0);
 }

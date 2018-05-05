@@ -6,53 +6,86 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/27 13:22:06 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/28 17:29:18 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/04 19:04:00 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void			ft_set_env_tool(char **env_cmd, t_minishell *shell, int p, \
+int				ft_verif2(char *str)
+{
+	int i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=' && str[i + 1] == '\0')
+			return (0);
+		i++;
+	}
+	return (1);
+
+}
+
+int 			ft_verif3(char *str)
+{
+	int i = 0;
+	int ok = -1;
+	while (str[i])
+	{
+		if (str[i] == ':')
+			ok++;
+		i++;
+	}
+	return (ok);
+}
+
+int ft_verif4(char *str)
+{
+	if (str[0] == 'P' && str[1] == 'A' && str[2] == 'T' && str[3] == 'H' && str[4] == '\0')
+		return (1);
+	else
+		return (0);
+}
+char			**ft_set_env_tool(char **env_cmd, t_minishell *shell, int p, \
 		char *tmp)
 {
+	(void)tmp;
 
-	if (!env_cmd[2])
+	int len;
+	char *result;
+	int i;
+	int ok = 0;
+	i = 0;
+	(void)env_cmd;
+
+	len = ft_strlen(shell->cmd[1]) + ft_strlen(tmp) + 2;
+	result = (char *)malloc(sizeof(char) * len);
+
+	if (ft_strcmp(shell->cmd[1], "PATH") == 0 && g_ess > 0)
 	{
-		tmp = ft_strdup("");
-		free(shell->env[p]);
-	shell->env[p] = ft_strdup(env_cmd[1]);
-	ft_strcat(shell->env[p], "=");
-	ft_strcat(shell->env[p], tmp);
-	if (ft_strcmp(env_cmd[1], "PATH") == 0)
-	{
-		ft_free_tab(shell->tab);
+		ok = 1;
+		g_ess = 0;
+		free(shell->tab);
 	}
-	//free(tmp);
-	}
-	else
+	if (g_ess == 0 && ft_strcmp(shell->cmd[1], "PATH") == 0 && shell->cmd[2])
 	{
-		char *tmpp;
-		char *tmp1;
-		int i = 0;
-		tmpp = ft_strdup(env_cmd[2]);
-	free(shell->env[p]);
-	tmp1 = ft_strdup(env_cmd[1]);
-	ft_strcat(tmp1, "=");
-	ft_strcat(tmp1, tmpp);
-	shell->env[p] = ft_strnew(4000);
-	ft_strcpy(shell->env[p], tmp1);
-	if (ft_strchr(shell->env[2], (int)':') == 0 && shell->tab)
-	{
-		shell->tab = ft_strsplit(shell->cmd[2], ':');
-		while (shell->tab[i])
+		if (ft_verif3(shell->cmd[2]) >= 0)
 		{
-			ft_strcat(shell->tab[i], "/");
-			i++;
-
+			g_ess++;
+			shell->tab = ft_split(shell->cmd[2]);
+			int y = 0;
+			while(shell->tab[y])
+			{
+				ft_strcat(shell->tab[y], "/");
+				y++;
+			}
 		}
+
 	}
-	free(tmp1);
-	free(tmpp);
-	}
+	ft_strcpy(result, shell->cmd[1]);
+	ft_strcat(result, "=");
+	ft_strcat(result, tmp);
+	free(shell->env[p]);
+	shell->env[p] = result;
+	return (shell->env);
 }
