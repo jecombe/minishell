@@ -29,6 +29,7 @@ void		init_shell(void)
 
 void		ft_print_prompt(void)
 {
+	ft_putchar('\r');
 	ft_putstr_color("[", 10);
 	ft_putstr(STOP);
 	ft_putstr_color(g_user, 14);
