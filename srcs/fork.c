@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 14:20:22 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/04 15:15:04 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/06 13:53:09 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,6 @@ char			*ft_ser(t_minishell *shell)
 	}
 	return (0);
 }
-int g_test;
 
 void			cmd_exec(t_minishell *shell, int value)
 {
@@ -81,7 +80,7 @@ void			cmd_exec(t_minishell *shell, int value)
 	if (pid_child > 0)
 	{
 		wait(0);
-		//ft_strdel(&file);
+		ft_strdel(&file);
 	}
 	else
 	{

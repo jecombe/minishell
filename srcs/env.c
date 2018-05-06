@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 13:26:51 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/04 18:35:49 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/06 16:01:50 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,7 +104,7 @@ char			**ft_set_env_next(t_minishell *shell, char *str)
 	ft_strcat(result, str);
 	if (ft_strcmp("PATH", shell->cmd[1]) == 0)
 	{
-		if (ft_verif3(shell->cmd[2]) >= 0 && g_ess == 0)
+		if (ft_verif3(shell->cmd[2], 1) >= 0 && g_ess == 0)
 		{
 			g_ess++;
 			shell->tab = ft_split(shell->cmd[2]);
@@ -147,6 +147,12 @@ void				ft_set_env(char **env_cmd, t_minishell *shell)
 
 	while (shell->cmd[j])
 		j++;
+	if (j == 1)
+	{
+		ft_print_error("setenv", ": No arguments !");
+		return;
+	}
+
 	if (j > 3)
 	{
 		ft_print_error("setenv", ": Too much arguments !");
@@ -172,13 +178,11 @@ void				ft_set_env(char **env_cmd, t_minishell *shell)
 		if (!shell->cmd[2])
 		{
 			shell->env = ft_set_env_next(shell, "");
-
 			return ;
 		}
 		else
 		{
 			shell->env = ft_set_env_next(shell, shell->cmd[2]);
-
 			return ;
 		}
 
@@ -221,16 +225,19 @@ void				ft_unset_env(t_minishell *shell)
 
 	p = 0;
 	i = 0;
-
-
 	while (shell->cmd[i])
 		i++;
-	i = 0;
+	if (i == 1)
+	{
+		ft_print_error("unsetenv", ": No arguments !");
+		return ;
+	}
 	if (i > 2)
 	{
 		ft_print_error("unsetenv", ": Too much arguments !");
 		return ;
 	}
+	i = 0;
 	while (shell->env[i] != NULL)
 	{
 		if (ft_match_before_char(shell->cmd[1], '=', shell->env[i]) == 1)

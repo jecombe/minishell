@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/26 18:12:05 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/04 13:47:14 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/06 15:15:27 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,7 @@ int				g_p;
 char			*g_user;
 int				g_test;
 int				g_ess;
+int				g_leak;
 
 typedef struct	s_minishell
 {
@@ -35,6 +36,7 @@ typedef struct	s_minishell
 	char **cmd;
 	char **env;
 }				t_minishell;
+
 int		my_getenv(char *name, char **env);
 char			**path(t_minishell *shell, char **env);
 void			aff_prompt(t_minishell *shell);
@@ -74,5 +76,5 @@ void			ft_free_tool(char *buff, char *cmd, t_minishell *shell);
 char 		**ft_split(char *str);
 char	**ft_strsplit2(char *str);
 char **ft_split_quote(char *str);
-int 		ft_verif3(char *str);
+int 		ft_verif3(char *str, int value);
 #endif

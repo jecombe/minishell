@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/27 13:22:06 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/04 19:04:00 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/06 15:15:33 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,14 +26,18 @@
 
 }*/
 
-int 			ft_verif3(char *str)
+int 			ft_verif3(char *str, int value)
 {
 	int i = 0;
 	int ok = -1;
 	while (str[i])
 	{
-		if (str[i] == ':')
+		if (value == 1)
+			if (str[i] == ':')
 			ok++;
+		if (value == 0)
+			if (str[i] == '/')
+				ok++;
 		i++;
 	}
 	return (ok);
@@ -65,11 +69,11 @@ char			**ft_set_env_tool(char **env_cmd, t_minishell *shell, int p, \
 	{
 		ok = 1;
 		g_ess = 0;
-		free(shell->tab);
+		ft_free_tab(shell->tab);
 	}
 	if (g_ess == 0 && ft_strcmp(shell->cmd[1], "PATH") == 0 && shell->cmd[2])
 	{
-		if (ft_verif3(shell->cmd[2]) >= 0)
+		if (ft_verif3(shell->cmd[2], 1) >= 0)
 		{
 			g_ess++;
 			shell->tab = ft_split(shell->cmd[2]);

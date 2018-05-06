@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 14:41:54 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/03 12:49:46 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/06 13:26:57 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +52,7 @@ char		**path(t_minishell *shell, char **env)
 		while (shell->env[i] != NULL)
 		{
 			if ((compare = (ft_strncmp("PATH=", shell->env[i], 5) == 0)))
-				return (ft_strsplit(shell->env[i], ':'));
+				return (ft_split(shell->env[i]));
 			i++;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:36 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/04 18:34:20 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/06 16:49:16 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,7 +85,7 @@ void		ft_ret_o(int ret, t_minishell *shell, char *cmd, char *buff)
 	{
 		ft_putchar('\r');
 		ft_strdel(&g_user);
-		ft_strdel(&buff);
+		//ft_strdel(&buff);
 		ft_strdel(&cmd);
 		ft_free_tab(shell->env);
 		if (g_ess > 0)
@@ -106,8 +106,6 @@ void		aff_prompt(t_minishell *shell)
 	cmd = malloc(sizeof(char*) * (4096));
 	cmd2 = malloc(sizeof(char*) * (4096));
 	buff = malloc(sizeof(char *) * (4096));
-	char *cmd3;
-	cmd3 = (char *)malloc(sizeof(char) * (4096));
 	ft_print_prompt();
 	if ((ret = (read(0, buff, READ_SIZE))) != -1)
 	{
@@ -116,25 +114,21 @@ void		aff_prompt(t_minishell *shell)
 			ft_strdel(&cmd);
 			ft_strdel(&buff);
 			free(cmd2);
-			free(cmd3);
 			return ;
 		}
 		if (ft_strchr(buff, (int)'/') != NULL)
 		{
-			cmd3 = ft_strdup(buff);
 			cmd2 = ft_epure(buff);
+				//free(buff);
 			if (cmd2[0] == '/')
 			{
 				ft_exec_slash(cmd2, shell);
 				free(cmd2);
-				free(cmd3);
 				free(cmd);
-				//free(buff);
 				return ;
 			}
 		}
-		free(cmd2);
-		free(cmd3);
+		ft_strdel(&cmd2);
 		ft_ret_o(ret, shell, cmd, buff);
 		if (ft_check_space(buff) == 0)
 		{
@@ -147,7 +141,9 @@ void		aff_prompt(t_minishell *shell)
 					ft_putchar(buff[i]);
 					ft_putstr(STOP);
 					ft_print_error(NULL, ": Command not found !");
+					ft_strdel(&cmd);
 					ft_strdel(&buff);
+					//ft_free_tab(shell->cmd);
 					return ;
 				}
 				i++;
@@ -160,19 +156,29 @@ void		aff_prompt(t_minishell *shell)
 			return ;
 		if (ft_builtin(cmd, shell) == 1)
 		{
+				//if (g_ess == 0)
+			if (cmd)
+				ft_strdel(&cmd);
 			ft_free_tab(shell->cmd);
+			//if (g_ess > 0)
+				//ft_strdel(&buff);
+				//sleep(150);
 			return ;
 		}
 		if (ft_builtin(cmd, shell) == 2)
 		{	
 			ft_free_tab(shell->env);
-			if (g_ess == 0)
+			if (g_ess >  0)
 				ft_free_tab(shell->tab);
 			ft_free_tab(shell->cmd);
 			ft_strdel(&g_user);
+		//ft_strdel(&buff);
 			exit(0);
 		}
 		cmd_exec(shell, 1);
+		ft_strdel(&buff);
+		ft_strdel(&cmd);
+		ft_free_tab(shell->cmd);
 		return;
 	}
 }
