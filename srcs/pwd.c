@@ -73,9 +73,7 @@ void		ft_chang_pwd(char **env, char *str)
 		if (ft_strncmp(env[i], "OLDPWD=", 7) == 0)
 		{
 			if (ok == 0)
-			{
 				old = ft_strdup("");
-			}
 			set_old_pwd(env, old, i);
 		}
 		i++;

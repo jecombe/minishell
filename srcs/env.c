@@ -62,9 +62,7 @@ void				env_now(t_minishell *shell, char **envv)
 	shell->env = malloc(sizeof(char *) * result);
 	while (envv[i] != NULL)
 	{
-		//shell->env[j] = malloc(sizeof(char) * ft_strlen(envv[i]) + 1);
 		shell->env[j] = ft_strdup(envv[i]);
-		//ft_strcpy(shell->env[j], envv[i]);
 		i++;
 		j++;
 	}
@@ -147,13 +145,20 @@ void				ft_set_env(char **env_cmd, t_minishell *shell)
 	i = 0;
 
 
+	while (shell->cmd[j])
+		j++;
+	if (j > 3)
+	{
+		ft_print_error("setenv", ": Too much arguments !");
+		return;
+	}
+	j = 0;
 	if ((i = my_getenv(env_cmd[1], shell->env)) >= 0)
 	{
 		p = i;
 		if (!shell->cmd[2])
 		{
 			shell->env = ft_set_env_tool(env_cmd, shell, p, "");
-
 			return;
 		}
 		else
@@ -216,13 +221,22 @@ void				ft_unset_env(t_minishell *shell)
 
 	p = 0;
 	i = 0;
+
+
+	while (shell->cmd[i])
+		i++;
+	i = 0;
+	if (i > 2)
+	{
+		ft_print_error("unsetenv", ": Too much arguments !");
+		return ;
+	}
 	while (shell->env[i] != NULL)
 	{
 		if (ft_match_before_char(shell->cmd[1], '=', shell->env[i]) == 1)
 		{
 			if (ft_strncmp("PATH=", shell->env[i], 5) == 0)
 			{
-				//g_path = 1;
 				if (g_ess > 0)
 				{
 					ft_free_tab(shell->tab);

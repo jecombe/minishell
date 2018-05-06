@@ -26,8 +26,6 @@
 
 int				g_p;
 char			*g_user;
-int				g_error;
-//int				g_path;
 int				g_test;
 int				g_ess;
 

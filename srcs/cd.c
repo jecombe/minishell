@@ -68,17 +68,7 @@ static void			ft_cd_next(char *str, char **env, int ok, char *home)
 			ft_print_error(str, ": No such file or directory !");
 	}
 	else
-	{	/*while (env[i])
-		{
-			if (ft_match_before_char("PWD", '=', env[i]) == 0)
-			{
-				printf("OKOK\n");
-				chdir(str);
-				ft_strdel(&home);
-				return ;
-			}
-			i++;
-		}*/
+	{
 		if (getcwd(cwd, sizeof(cwd)) == NULL)
 			ft_print_error(NULL, "Can't find the directory !");
 		else
@@ -105,7 +95,7 @@ void				ft_cd(char *str, char **env, t_minishell *shell)
 	{
 		ft_chang_pwd(env, home);
 		chdir(home);
-		//ft_strdel(&home);
+		ft_strdel(&home);
 		return ;
 	}
 	if (str[0] == '-')
@@ -123,15 +113,14 @@ void				ft_cd(char *str, char **env, t_minishell *shell)
 					return ;
 				}
 				r = ft_insert_old(env);
-		//ft_putendl(r);
-		if (chdir(r) == -1)
-			ft_print_error(r, ": No such file or directory !");
-		else
-			ft_putendl(r);
-		ft_chang_pwd(env, r);
-		ok = 1;
-	ft_cd_next(str, env, ok, home);
-	return ;
+				if (chdir(r) == -1)
+					ft_print_error(r, ": No such file or directory !");
+				else
+					ft_putendl(r);
+				ft_chang_pwd(env, r);
+				ok = 1;
+				ft_cd_next(str, env, ok, home);
+				return ;
 			}
 			i++;
 		}

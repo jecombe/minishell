@@ -52,9 +52,7 @@ char		**path(t_minishell *shell, char **env)
 		while (shell->env[i] != NULL)
 		{
 			if ((compare = (ft_strncmp("PATH=", shell->env[i], 5) == 0)))
-			{
 				return (ft_strsplit(shell->env[i], ':'));
-			}
 			i++;
 		}
 	}

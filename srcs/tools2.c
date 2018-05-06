@@ -13,7 +13,7 @@
 
 #include "../include/minishell.h"
 
-int				ft_verif2(char *str)
+/*int				ft_verif2(char *str)
 {
 	int i = 0;
 	while (str[i])
@@ -24,7 +24,7 @@ int				ft_verif2(char *str)
 	}
 	return (1);
 
-}
+}*/
 
 int 			ft_verif3(char *str)
 {

@@ -28,24 +28,22 @@ char			*ft_ser(t_minishell *shell)
 	temp = NULL;
 	while (shell->tab[i])
 	{
-		dup3= ft_strdup(shell->tab[i]);
+		dup3 = ft_strdup(shell->tab[i]);
 		dup2 = ft_strdup(shell->cmd[0]);
-		//	ft_strcat(dup, dup2);
 		dup = ft_strjoin(dup3, dup2);
-		//			printf("DUP == %s\n", dup);
 		if (lstat(dup, &sb) == -1)
 			;
 		else
 		{
-				//ft_strdel(&dup2);
-				//ft_strdel(&dup3);
+			ft_strdel(&dup2);
+			ft_strdel(&dup3);
 			return (dup);
 		}
 		if (dup3 && dup2 && dup != NULL)
 		{
-		//free(dup3);
-		//free(dup2);
-		//free(dup);
+			free(dup3);
+			free(dup2);
+			free(dup);
 		}
 		i++;
 	}
@@ -74,7 +72,7 @@ void			cmd_exec(t_minishell *shell, int value)
 			int i = 0;
 			if (value == 1 && shell->cmd[0][0] > 33 && shell->cmd[0][0] < 127)
 			{
-				ft_print_error(shell->cmd[0], ": Commaniuud not found !");
+				ft_print_error(shell->cmd[0], ": Command not found !");
 			}
 			return;
 		}
@@ -98,7 +96,7 @@ void			cmd_exec(t_minishell *shell, int value)
 		}
 
 	}
-	g_error = 0;
+
 	g_test = 0;
 	return ;
 
