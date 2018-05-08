@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/26 10:39:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/03 15:20:54 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/08 15:43:33 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -110,6 +110,7 @@ void				ft_cd(char *str, char **env, t_minishell *shell)
 				if (y == 7)
 				{
 					ft_print_error("cd", ": OLDPWD not set !");
+					free(home);
 					return ;
 				}
 				r = ft_insert_old(env);
@@ -120,11 +121,14 @@ void				ft_cd(char *str, char **env, t_minishell *shell)
 				ft_chang_pwd(env, r);
 				ok = 1;
 				ft_cd_next(str, env, ok, home);
+				free(home);
+				free(r);
 				return ;
 			}
 			i++;
 		}
 		ft_print_error("cd", ": OLDPWD not set !");
+		free(home);
 		return ;
 
 	}

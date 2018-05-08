@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/04 13:56:35 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/08 14:29:48 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,6 +63,7 @@ static int		ft_buitlin_next(t_minishell *shell)
 	else if (ft_strcmp("unsetenv", shell->cmd[0]) == 0)
 	{
 		ft_unset_env(shell);
+		//sleep(150);
 
 		return (1);
 	}

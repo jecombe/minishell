@@ -5,8 +5,21 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/05/08 14:47:14 by jecombe      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/08 15:03:01 by jecombe     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   env.c                                            .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 13:26:51 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/06 16:01:50 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/08 14:45:14 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,6 +101,7 @@ char		**malloc_from_arr(char *str, char **arr)
 	free(arr);
 	new_arr[i] = str;
 	new_arr[i + 1] = NULL;
+	free(str);
 	return (new_arr);
 }
 
@@ -128,6 +142,7 @@ char			**ft_set_env_next(t_minishell *shell, char *str)
 	}
 	else
 		return (malloc_from_arr(result, shell->env));
+	free(result);
 	return (new_arr);
 
 }
@@ -210,6 +225,7 @@ void				ft_realloc_env(t_minishell *shell, int len)
 	while (shell->env[i])
 	{
 		c = ft_strdup(shell->env[i]);
+		ft_strdel(&shell->env[i]);
 		shell->env[i - 1] = ft_strdup(c);
 		ft_strdel(&c);
 		i++;
