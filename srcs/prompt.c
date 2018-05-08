@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:36 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/08 16:42:04 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/08 19:03:01 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,15 +21,11 @@ void		ft_exec_slash(char *cmd, t_minishell *shell)
 	if (cmd[0] == '/')
 	{
 		g_p = 1;
-		while (cmd[t] != '\0')
-		{
-			if (cmd[t] == ' ' && cmd[t + 1] == '\n')
-				cmd[t] = '\n';
+		while (cmd[t] != '\n')
 			t++;
-		}
+		cmd[t] = '\0';
 		t = 0;
 		shell->cmd = ft_strsplit2(cmd);
-		printf("ok aprea\n");
 		ft_builtin(cmd, shell);
 		return ;
 	}
@@ -101,7 +97,6 @@ void		ft_ret_o(int ret, t_minishell *shell, char *cmd, char *buff)
 int		ft_next(char *cmd, char *buff, t_minishell *shell)
 {
 	cmd = ft_epure(buff);
-				//free(buff);
 			if (cmd[0] == '/')
 			{
 				ft_exec_slash(cmd, shell);
@@ -115,6 +110,7 @@ void		aff_prompt(t_minishell *shell)
 {
 	char	buff[4096];
 	char	cmd[4096];
+	//char	*cmd2;
 	char	cmd2[4096];
 	int		ret;
 	int ok = 0;
@@ -137,11 +133,9 @@ void		aff_prompt(t_minishell *shell)
 			ok = 1;
 			if (ft_next(cmd2, buff, shell) == 1)
 			{
-				printf("fin\n");
 				ft_free_tab(shell->cmd);
 				return ;
 			}
-			printf("laaaaaaaaaaaaaaaaaa\n");
 		}
 		ft_ret_o(ret, shell, cmd, buff);
 		if (ft_check_space(buff) == 0)
@@ -170,9 +164,6 @@ void		aff_prompt(t_minishell *shell)
 			return ;
 		if (ft_builtin(cmd, shell) == 1)
 		{
-				//if (g_ess == 0)
-			//if (cmd)
-				//ft_strdel(&cmd);
 			ft_free_tab(shell->cmd);
 			//if (g_ess > 0)
 			//ft_strdel(&buff);
