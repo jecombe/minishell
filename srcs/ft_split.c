@@ -25,9 +25,7 @@ char  *ft_malloc(char *str)
 	int i;
 	i = 0;
 	while (str[i] && str[i] != ':')
-	{
 		i++;
-	}
 	word = (char *)malloc(sizeof(char) * (i + 1));
 	i = 0;
 

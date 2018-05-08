@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/04 13:43:48 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/04 13:49:03 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/08 18:14:07 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,9 +37,7 @@ char  *ft_mallocc(char *str)
 	int i;
 	i = 0;
 	while (str[i] && str[i] != '"')
-	{
 		i++;
-	}
 	word = (char *)malloc(sizeof(char) * (i + 1));
 	i = 0;
 
@@ -49,9 +47,7 @@ char  *ft_mallocc(char *str)
 		i++;
 	}
 	word[i] = '\0';
-	return(word);
-		
-
+	return (word);
 }
 
 char **ft_split_quote(char *str)
@@ -73,9 +69,7 @@ char **ft_split_quote(char *str)
 			i++;
 			while (*str && *str != '"')
 				str++;
-			
 		}
-
 	}
 	result[i] = NULL;
 	return (result);
