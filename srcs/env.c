@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/08 14:47:14 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/08 15:03:01 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/08 16:34:26 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,7 +101,7 @@ char		**malloc_from_arr(char *str, char **arr)
 	free(arr);
 	new_arr[i] = str;
 	new_arr[i + 1] = NULL;
-	free(str);
+	//free(str);
 	return (new_arr);
 }
 

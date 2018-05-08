@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/27 13:22:06 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/08 15:02:32 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/08 16:04:08 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,6 +91,5 @@ char			**ft_set_env_tool(char **env_cmd, t_minishell *shell, int p, \
 	ft_strcat(result, tmp);
 	free(shell->env[p]);
 	shell->env[p] = result;
-	free(result);
 	return (shell->env);
 }

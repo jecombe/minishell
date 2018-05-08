@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:36 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/08 15:31:39 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/08 16:42:04 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,8 @@ void		ft_exec_slash(char *cmd, t_minishell *shell)
 			t++;
 		}
 		t = 0;
-		shell->cmd = ft_str_cmd(cmd, shell);
+		shell->cmd = ft_strsplit2(cmd);
+		printf("ok aprea\n");
 		ft_builtin(cmd, shell);
 		return ;
 	}
@@ -104,8 +105,6 @@ int		ft_next(char *cmd, char *buff, t_minishell *shell)
 			if (cmd[0] == '/')
 			{
 				ft_exec_slash(cmd, shell);
-				//free(cmd2);
-				//free(cmd);
 				return (1);
 			}
 			return (0);
@@ -137,9 +136,12 @@ void		aff_prompt(t_minishell *shell)
 			//cmd2 = malloc(sizeof(char*) * (4096));
 			ok = 1;
 			if (ft_next(cmd2, buff, shell) == 1)
+			{
+				printf("fin\n");
+				ft_free_tab(shell->cmd);
 				return ;
-			else
-				;
+			}
+			printf("laaaaaaaaaaaaaaaaaa\n");
 		}
 		ft_ret_o(ret, shell, cmd, buff);
 		if (ft_check_space(buff) == 0)
