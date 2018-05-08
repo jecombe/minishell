@@ -85,7 +85,7 @@ void		ft_ret_o(int ret, t_minishell *shell, char *cmd, char *buff)
 	{
 		ft_putchar('\r');
 		ft_strdel(&g_user);
-		//ft_strdel(&buff);
+		ft_strdel(&buff);
 		//ft_strdel(&cmd);
 		ft_free_tab(shell->env);
 		if (g_ess > 0)
@@ -108,7 +108,7 @@ int		ft_next(char *cmd, char *buff, t_minishell *shell)
 }
 void		aff_prompt(t_minishell *shell)
 {
-	char	buff[4096];
+	char	*buff;
 	char	cmd[4096];
 	//char	*cmd2;
 	char	cmd2[4096];
@@ -117,14 +117,14 @@ void		aff_prompt(t_minishell *shell)
 
 	int i = 0;
 	//cmd = malloc(sizeof(char*) * (4096));
-//	buff = malloc(sizeof(char *) * (4096));
+	buff = malloc(sizeof(char *) * (4096));
 	ft_print_prompt();
 	if ((ret = (read(0, buff, READ_SIZE))) != -1)
 	{
 		if (buff[0] == '\n')
 		{
 			//ft_strdel(&cmd);
-			//ft_strdel(&buff);
+			ft_strdel(&buff);
 			return ;
 		}
 		if (ft_strchr(buff, (int)'/') != NULL)
@@ -134,6 +134,7 @@ void		aff_prompt(t_minishell *shell)
 			if (ft_next(cmd2, buff, shell) == 1)
 			{
 				ft_free_tab(shell->cmd);
+				ft_strdel(&buff);
 				return ;
 			}
 		}
@@ -150,23 +151,26 @@ void		aff_prompt(t_minishell *shell)
 					ft_putstr(STOP);
 					ft_print_error(NULL, ": Command not found !");
 					//ft_strdel(&cmd);
-					//ft_strdel(&buff);
+					ft_strdel(&buff);
 					//ft_free_tab(shell->cmd);
 					return ;
 				}
 				i++;
 			}
 			//ft_strdel(&cmd);
-			//ft_strdel(&buff);
+			ft_strdel(&buff);
 			return ;
 		}
 		if (aff_prompt_next(buff, cmd, shell) == 0)
+		{
+			ft_strdel(&buff);
 			return ;
+		}
 		if (ft_builtin(cmd, shell) == 1)
 		{
 			ft_free_tab(shell->cmd);
 			//if (g_ess > 0)
-			//ft_strdel(&buff);
+			ft_strdel(&buff);
 				//sleep(150);
 			return ;
 		}
@@ -177,11 +181,11 @@ void		aff_prompt(t_minishell *shell)
 				ft_free_tab(shell->tab);
 			ft_free_tab(shell->cmd);
 			ft_strdel(&g_user);
-		//ft_strdel(&buff);
+		ft_strdel(&buff);
 			exit(0);
 		}
 		cmd_exec(shell, 1);
-		//ft_strdel(&buff);
+		ft_strdel(&buff);
 		//ft_strdel(&cmd);
 		ft_free_tab(shell->cmd);
 		return;
