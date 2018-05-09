@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 12:57:55 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 15:15:52 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/09 15:16:41 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,21 +59,10 @@ void		sigint(int sig)
 int			ft_check_space(char *buff)
 {
 	int i;
-	int ok = 0;
+	int ok;
 
 	i = 0;
-	/*while (buff[i])
-	{
-		if (buff[i] > 32 && buff[i] < 127)
-		{
-			ok++;
-		}
-		i++;
-	}
-	if (ok > 0)
-		return (1);
-	else
-		return (0);*/
+	ok = 0;
 	if (buff[i] == '\n')
 		return (0);
 	while (buff[i] == ' ' && buff[i + 1] != '\n')

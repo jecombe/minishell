@@ -1,6 +1,19 @@
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_strsplit2.c                                   .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/05/09 15:03:06 by jecombe      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/09 15:04:11 by jecombe     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 
-int		count_words(char *str)
+#include "../include/minishell.h"
+
+int			count_words(char *str)
 {
 	int		count;
 
@@ -19,11 +32,11 @@ int		count_words(char *str)
 	return (count);
 }
 
-char	*malloc_word(char *str)
+char		*malloc_word(char *str)
 {
 	char	*word;
 	int		i;
-	
+
 	i = 0;
 	while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\t')
 		i++;
@@ -38,7 +51,7 @@ char	*malloc_word(char *str)
 	return (word);
 }
 
-char	**ft_strsplit2(char *str)
+char		**ft_strsplit2(char *str)
 {
 	int		words;
 	char	**tab;

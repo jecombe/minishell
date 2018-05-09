@@ -6,14 +6,14 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 14:47:24 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/08 16:08:50 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/09 15:40:14 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int		ft_count(char *str, int value)
+static int		ft_countt(char *str, int value)
 {
 	int i;
 	int co;
@@ -85,7 +85,7 @@ char			**ft_str_cmd(char *cmd, t_minishell *shell)
 	int co_char;
 
 	i = 0;
-	co_word = ft_count(cmd, 1);
+	co_word = ft_countt(cmd, 1);
 	shell->cmd = malloc(sizeof(char *) * (co_word) + 1);
 	shell->cmd = ft_str_cmd_next(cmd, shell, i, co_char);
 	return (shell->cmd);

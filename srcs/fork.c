@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 14:20:22 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/08 16:30:53 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/09 15:20:52 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,17 +15,25 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-char			*ft_ser(t_minishell *shell)
+void				ft_ser_next(char *dup, char *dup2, char *dup3)
 {
-	int			i;
-	char		*temp;
-	char *dup;
-	char *dup2;
-	char *dup3;
-	struct stat sb;
+	if (dup3 && dup2 && dup != NULL)
+	{
+		free(dup3);
+		free(dup2);
+		free(dup);
+	}
+}
+
+char				*ft_ser(t_minishell *shell)
+{
+	int				i;
+	char			*dup;
+	char			*dup2;
+	char			*dup3;
+	struct stat		sb;
 
 	i = 0;
-	temp = NULL;
 	while (shell->tab[i])
 	{
 		dup3 = ft_strdup(shell->tab[i]);
@@ -39,44 +47,15 @@ char			*ft_ser(t_minishell *shell)
 			ft_strdel(&dup3);
 			return (dup);
 		}
-		if (dup3 && dup2 && dup != NULL)
-		{
-			free(dup3);
-			free(dup2);
-			free(dup);
-		}
+		ft_ser_next(dup, dup2, dup3);
 		i++;
 	}
 	return (0);
 }
 
-void			cmd_exec(t_minishell *shell, int value)
+void				ft_next_next(pid_t pid_child, char *file,
+		t_minishell *shell)
 {
-	pid_t		pid_child;
-	char	*file;
-	int			i;
-	int			status;
-
-	i = 0;
-	//printf("g_es %d\n", g_ess);
-	if (g_ess == 0 && g_test == 0)
-	{
-		ft_print_error(shell->cmd[0], ": Command not found !");
-		return;
-	}
-	if (g_test == 0)
-	{
-		if ((file = ft_ser(shell)) == 0)
-		{
-			int i = 0;
-			if (value == 1 && shell->cmd[0][0] > 33 && shell->cmd[0][0] < 127)
-			{
-				ft_print_error(shell->cmd[0], ": Command not found !");
-			}
-			return;
-		}
-	}
-	pid_child = fork();
 	if (pid_child > 0)
 	{
 		wait(0);
@@ -84,25 +63,37 @@ void			cmd_exec(t_minishell *shell, int value)
 			ft_strdel(&file);
 	}
 	else
-	{
-		if (g_test == 0)
-		{
-			execve(file, shell->cmd, shell->env);
-			return ;
-		}
-		else
-		{
-			execve(shell->cmd[0], shell->cmd, shell->env);
-		}
-
-	}
-
-	g_test = 0;
-	return ;
-
+		ft_exec(file, shell);
 }
 
-void			ft_direct(char **cmd, char **env, t_minishell *shell, \
+void				cmd_exec(t_minishell *shell, int value)
+{
+	pid_t			pid_child;
+	char			*file;
+	int				i;
+	int				status;
+
+	i = 0;
+	if (g_ess == 0 && g_test == 0)
+	{
+		ft_print_error(shell->cmd[0], ": Command not found !");
+		return ;
+	}
+	if (g_test == 0)
+	{
+		if ((file = ft_ser(shell)) == 0)
+		{
+			ft_file_exec(shell, value);
+			return ;
+		}
+	}
+	pid_child = fork();
+	ft_next_next(pid_child, file, shell);
+	g_test = 0;
+	return ;
+}
+
+void				ft_direct(char **cmd, char **env, t_minishell *shell, \
 		char *buff)
 {
 	(void)cmd;

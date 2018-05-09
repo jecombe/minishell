@@ -1,9 +1,22 @@
-#include <stdlib.h>
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_split.c                                       .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/05/09 15:00:04 by jecombe      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/09 15:01:54 by jecombe     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 
-int ft_count_word(char *str)
+#include "../include/minishell.h"
+
+int			ft_count_wordt(char *str)
 {
 	int len;
+
 	len = 0;
 	while (*str)
 	{
@@ -19,35 +32,33 @@ int ft_count_word(char *str)
 	return (len);
 }
 
-char  *ft_malloc(char *str)
+char		*ft_malloc(char *str)
 {
-	char *word;
-	int i;
+	char	*word;
+	int		i;
+
 	i = 0;
 	while (str[i] && str[i] != ':')
 		i++;
 	word = (char *)malloc(sizeof(char) * (i + 1));
 	i = 0;
-
 	while (str[i] && str[i] != ':')
 	{
 		word[i] = str[i];
 		i++;
 	}
 	word[i] = '\0';
-	return(word);
-		
-
+	return (word);
 }
 
-char **ft_split(char *str)
+char		**ft_split(char *str)
 {
-	char **result;
-	int len;
-	int i;
-	i = 0;
+	char	**result;
+	int		len;
+	int		i;
 
-	len = ft_count_word(str);
+	i = 0;
+	len = ft_count_wordt(str);
 	result = (char **)malloc(sizeof(char *) * (len + 1));
 	while (*str)
 	{
@@ -59,9 +70,7 @@ char **ft_split(char *str)
 			i++;
 			while (*str && *str != ':')
 				str++;
-			
 		}
-
 	}
 	result[i] = NULL;
 	return (result);

@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/27 17:53:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/04 17:59:21 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/09 15:06:55 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,24 @@ void			ft_user(char **env)
 	}
 }
 
+void			ft_init(t_minishell *shell, char **env)
+{
+	int o;
+
+	o = 1;
+	env_now(shell, env);
+	ft_user(shell->env);
+	g_ess++;
+	shell->tab = path(shell, env);
+	shell->tab[0] = split_path(shell);
+	while (shell->tab[o])
+	{
+		if (ft_strcmp(shell->tab[o], "\n"))
+			ft_strcat(shell->tab[o], "/");
+		o++;
+	}
+}
+
 int				main(int argc, char **argv, char **env)
 {
 	t_minishell shell;
@@ -53,23 +71,11 @@ int				main(int argc, char **argv, char **env)
 	init_shell();
 	(void)argc;
 	(void)argv;
-	env_now(&shell, env);
-	ft_user(shell.env);
-	g_ess++;
-	shell.tab = path(&shell, env);
-	shell.tab[0] = split_path(&shell);
-	while (shell.tab[o])
-	{
-		if (ft_strcmp(shell.tab[o], "\n"))
-			ft_strcat(shell.tab[o], "/");
-		o++;
-	}
+	ft_init(&shell, env);
 	while (1)
 	{
 		signal(SIGINT, sigint);
-
 		aff_prompt(&shell);
-		
 	}
 	return (0);
 }

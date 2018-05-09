@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/26 18:12:05 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/06 15:15:27 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/09 15:38:22 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ typedef struct	s_minishell
 	char **env;
 }				t_minishell;
 
-int		my_getenv(char *name, char **env);
+int				my_getenv(char *name, char **env);
 char			**path(t_minishell *shell, char **env);
 void			aff_prompt(t_minishell *shell);
 int				ft_builtin(char *cmd, t_minishell *shell);
@@ -73,8 +73,24 @@ void			ft_chang_pwd(char **env, char *str);
 char			**ft_set_env_tool(char **env_cmd, t_minishell *shell, int p, \
 		char *tmp);
 void			ft_free_tool(char *buff, char *cmd, t_minishell *shell);
-char 		**ft_split(char *str);
-char	**ft_strsplit2(char *str);
-char **ft_split_quote(char *str);
-int 		ft_verif3(char *str, int value);
+char			**ft_split(char *str);
+char			**ft_strsplit2(char *str);
+char			**ft_split_quote(char *str);
+int				ft_verif3(char *str, int value);
+void			ft_exec(char *file, t_minishell *shell);
+int				ft_file_exec(t_minishell *shell, int value);
+int				ft_cmd_exec_next(t_minishell *shell, char *file, int value);
+char			*ft_ser(t_minishell *shell);
+void			ft_transfer(char *env, char *str);
+int				ft_count(char *str);
+int				ft_check_n(char *buff);
+int				ft_next(char *cmd, char *buff, t_minishell *shell);
+void			ft_exec_slash(char *cmd, t_minishell *shell);
+void			aff_prompt_next2(char *cmd, t_minishell *shell, int t,
+		char *buff);
+char			**malloc_from_arr(char *str, char **arr);
+void			ft_set_env_next_next(t_minishell *shell);
+char			**ft_set_env_next(t_minishell *shell, char *str);
+char			**ft_set_env_next(t_minishell *shell, char *str);
+void			ft_suite(t_minishell *shell);
 #endif

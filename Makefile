@@ -34,7 +34,11 @@ FILES = main.c \
 		tools2.c\
 		ft_split.c\
 		ft_strsplit2.c \
-		ft_split_quote.c
+		ft_split_quote.c \
+		tools3.c \
+		tools4.c \
+		tools_env.c \
+		tools_env_2.c
 
 END=\x1b[0m
 BOLD=\x1b[1m

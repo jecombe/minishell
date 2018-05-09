@@ -5,213 +5,76 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/05/08 14:47:14 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/08 16:34:26 by jecombe     ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   env.c                                            .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/22 13:26:51 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/08 14:45:14 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/09 15:33:15 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int		my_getenv(char *name, char **env)
-{
-	int		i;
-	char		*search;
-	int		name_len;
-
-	name_len = ft_strlen(name) + 1;
-	search = (char*)malloc(sizeof(char) * name_len);
-	if (search != NULL)
-	{
-		ft_strcpy(search, name);
-		ft_strcat(search, "=");
-		i = 0;
-		while (env[i] != NULL)
-		{
-			if (ft_strncmp(env[i], search, name_len) == 0)
-			{
-				free(search);
-				return (i);
-			}
-			i = i + 1;
-		}
-		free(search);
-	}
-	return (-1);
-}
-
-
-void				env_now(t_minishell *shell, char **envv)
+int						ft_set_env_get_env(t_minishell *shell, char **env_cmd,
+		int p)
 {
 	int i;
-	int j;
-	int result;
-	int co;
 
-	i = 0;
-	result = 0;
-	co = 0;
-	j = 0;
-	while (envv[i])
-	{
-		co = ft_strlen(envv[i]);
-		result = result + co;
-		i++;
-	}
-	i = 0;
-	shell->env = malloc(sizeof(char *) * result);
-	while (envv[i] != NULL)
-	{
-		shell->env[j] = ft_strdup(envv[i]);
-		i++;
-		j++;
-	}
-	shell->env[j] = NULL;
-}
-char		**malloc_from_arr(char *str, char **arr)
-{
-	int		i;
-	char		**new_arr;
-
-	i = 0;
-	while (arr[i] != NULL)
-		i = i + 1;
-	new_arr = (char**)malloc(sizeof(char*) * (i + 2));
-	if (new_arr == NULL)
-		return (arr);
-	i = 0;
-	while (arr[i] != NULL)
-	{
-		new_arr[i] = arr[i];
-		i = i + 1;
-	}
-	free(arr);
-	new_arr[i] = str;
-	new_arr[i + 1] = NULL;
-	//free(str);
-	return (new_arr);
-}
-
-char			**ft_set_env_next(t_minishell *shell, char *str)
-{
-	char *result;
-	int len;
-	int i = 0;
-
-	len = ft_strlen(shell->cmd[1]) + ft_strlen(str) + 2;
-	result = (char *)malloc(sizeof(char) * len);
-	ft_strcpy(result, shell->cmd[1]);
-	ft_strcat(result,"=");
-	ft_strcat(result, str);
-	if (ft_strcmp("PATH", shell->cmd[1]) == 0)
-	{
-		if (ft_verif3(shell->cmd[2], 1) >= 0 && g_ess == 0)
-		{
-			g_ess++;
-			shell->tab = ft_split(shell->cmd[2]);
-			while (shell->tab[i])
-			{
-				ft_strcat(shell->tab[i], "/");
-				i++;
-			}
-
-		}
-	}
-	char		**new_arr;
-
-	if (shell->env == NULL)
-	{
-		new_arr = (char**)malloc(sizeof(char*) * 2);
-		if (new_arr == NULL)
-			return (shell->env);
-		new_arr[0] = result;
-		new_arr[1] = NULL;
-	}
-	else
-		return (malloc_from_arr(result, shell->env));
-	free(result);
-	return (new_arr);
-
-}
-
-void				ft_set_env(char **env_cmd, t_minishell *shell)
-{
-	int				i;
-	int				p;
-	int				j;
-	char			*tmp;
-	int g = 0;
-
-	j = 0;
-	p = -1;
-	i = 0;
-
-
-	while (shell->cmd[j])
-		j++;
-	if (j == 1)
-	{
-		ft_print_error("setenv", ": No arguments !");
-		return;
-	}
-
-	if (j > 3)
-	{
-		ft_print_error("setenv", ": Too much arguments !");
-		return;
-	}
-	j = 0;
 	if ((i = my_getenv(env_cmd[1], shell->env)) >= 0)
 	{
 		p = i;
 		if (!shell->cmd[2])
 		{
 			shell->env = ft_set_env_tool(env_cmd, shell, p, "");
-			return;
+			return (1);
 		}
 		else
 		{
 			shell->env = ft_set_env_tool(env_cmd, shell, p, shell->cmd[2]);
-			return ;
+			return (1);
 		}
 	}
 	else
 	{
-		if (!shell->cmd[2])
-		{
-			shell->env = ft_set_env_next(shell, "");
-			return ;
-		}
-		else
-		{
-			shell->env = ft_set_env_next(shell, shell->cmd[2]);
-			return ;
-		}
-
+		ft_suite(shell);
+		return (1);
 	}
+	return (0);
 }
 
-void				ft_realloc_env(t_minishell *shell, int len)
+void					ft_set_env(char **env_cmd, t_minishell *shell)
 {
-	int				i;
-	int				ok;
-	char			*c;
+	int					i;
+	int					p;
+	int					j;
+	char				*tmp;
+	int					g;
+
+	j = 0;
+	p = -1;
+	i = 0;
+	g = 0;
+	while (shell->cmd[j])
+		j++;
+	if (j == 1)
+	{
+		ft_print_error("setenv", ": No arguments !");
+		return ;
+	}
+	if (j > 3)
+	{
+		ft_print_error("setenv", ": Too much arguments !");
+		return ;
+	}
+	j = 0;
+	if (ft_set_env_get_env(shell, env_cmd, p) == 1)
+		return ;
+}
+
+void					ft_realloc_env(t_minishell *shell, int len)
+{
+	int					i;
+	char				*c;
 
 	i = -1;
-	ok = 0;
 	while (++i < len)
 	{
 		c = ft_strdup(shell->env[i]);
@@ -220,7 +83,6 @@ void				ft_realloc_env(t_minishell *shell, int len)
 		ft_strdel(&c);
 	}
 	ft_strdel(&shell->env[i]);
-	ok = 1;
 	i++;
 	while (shell->env[i])
 	{
@@ -234,10 +96,32 @@ void				ft_realloc_env(t_minishell *shell, int len)
 	return ;
 }
 
-void				ft_unset_env(t_minishell *shell)
+int						ft_unset_env_next(t_minishell *shell, int i)
 {
-	int				i;
-	int				p;
+	while (shell->env[i] != NULL)
+	{
+		if (ft_match_before_char(shell->cmd[1], '=', shell->env[i]) == 1)
+		{
+			if (ft_strncmp("PATH=", shell->env[i], 5) == 0)
+			{
+				if (g_ess > 0)
+				{
+					ft_free_tab(shell->tab);
+					g_ess = 0;
+				}
+			}
+			ft_realloc_env(shell, i);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+void					ft_unset_env(t_minishell *shell)
+{
+	int					i;
+	int					p;
 
 	p = 0;
 	i = 0;
@@ -254,22 +138,7 @@ void				ft_unset_env(t_minishell *shell)
 		return ;
 	}
 	i = 0;
-	while (shell->env[i] != NULL)
-	{
-		if (ft_match_before_char(shell->cmd[1], '=', shell->env[i]) == 1)
-		{
-			if (ft_strncmp("PATH=", shell->env[i], 5) == 0)
-			{
-				if (g_ess > 0)
-				{
-					ft_free_tab(shell->tab);
-					g_ess  = 0;
-				}
-			}
-			ft_realloc_env(shell, i);
-			return ;
-		}
-		i++;
-	}
+	if (ft_unset_env_next(shell, i) == 0)
+		return ;
 	ft_print_error(shell->cmd[1], ": name doesn't match !");
 }
