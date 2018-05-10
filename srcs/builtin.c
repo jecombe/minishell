@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/09 15:14:00 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/10 19:20:27 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,25 +33,58 @@ static void		ft_check_slashn(char **cmd)
 	}
 }
 
-static void		ft_print_echo(char **cmd)
+/*static void		ft_print_echo(char **cmd)
 {
 	int o;
 
 	o = 1;
+	ft_print_tab(cmd, 1);
 	while (cmd[o])
 	{
-		ft_putstr(cmd[o]);
+		if (cmd[o][0] != '$')
+			ft_putstr(cmd[o]);
 		ft_putstr(" ");
 		o++;
 	}
 	ft_putstr("\n");
+}*/
+
+static void		ft_print_echo(char **cmd)
+{
+	int o;
+	int ok;
+	int p;
+
+	o = 1;
+	ok = 0;
+	p = 0;
+	while (cmd[o])
+	{
+		while (cmd[o][p])
+		{
+			if (cmd[o][p] == '$' && cmd[o][p + 1] != ' ')
+			{
+				ok++;
+			}
+			p++;
+		}
+		p = 0;
+		if (ok == 0)
+			ft_putstr(cmd[o]);
+		ft_putstr(" ");
+		o++;
+		ok = 0;
+	}
+	ft_putstr("\n");
 }
+
 
 static int		ft_buitlin_next(t_minishell *shell)
 {
 	if (ft_strcmp("echo", shell->cmd[0]) == 0)
 	{
 		ft_check_slashn(shell->cmd);
+		ft_search_dollar(shell);
 		ft_print_echo(shell->cmd);
 		return (1);
 	}

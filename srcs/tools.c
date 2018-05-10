@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 12:57:55 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/09 15:16:41 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/10 15:30:53 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,7 +65,7 @@ int			ft_check_space(char *buff)
 	ok = 0;
 	if (buff[i] == '\n')
 		return (0);
-	while (buff[i] == ' ' && buff[i + 1] != '\n')
+	while ((buff[i] == ' ' || buff[i] == '\t') && buff[i + 1] != '\n')
 		i++;
 	if (buff[i + 1] == '\n')
 		return (0);

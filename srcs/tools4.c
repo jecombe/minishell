@@ -6,12 +6,40 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/09 15:23:24 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/09 15:27:21 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/10 18:11:24 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+char			*ft_home(char **env)
+{
+	char			*result;
+	int				i;
+	int				a;
+	int				b;
+	int				ok;
+
+	i = 0;
+	a = 5;
+	b = 0;
+	ok = 0;
+	result = (char *)malloc(sizeof(char) * (4096));
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], "HOME=", 5) == 0)
+		{
+			ok = 1;
+			while (env[i][a] != '\0')
+				result[b++] = env[i][a++];
+		}
+		i++;
+	}
+	if (ok == 0)
+		chdir("/");
+	return (result);
+}
 
 int				ft_check_n(char *buff)
 {

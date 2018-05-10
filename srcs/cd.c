@@ -6,40 +6,12 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/26 10:39:46 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/09 15:23:15 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/10 18:11:52 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-static char			*ft_home(char **env)
-{
-	char			*result;
-	int				i;
-	int				a;
-	int				b;
-	int				ok;
-
-	i = 0;
-	a = 5;
-	b = 0;
-	ok = 0;
-	result = (char *)malloc(sizeof(char) * (4096));
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "HOME=", 5) == 0)
-		{
-			ok = 1;
-			while (env[i][a] != '\0')
-				result[b++] = env[i][a++];
-		}
-		i++;
-	}
-	if (ok == 0)
-		chdir("/");
-	return (result);
-}
 
 static void			ft_cd_next(char *str, char **env, int ok, char *home)
 {
@@ -111,12 +83,25 @@ int					ft_next_cd(t_minishell *shell, char *home, char *str,
 	return (1);
 }
 
+void				ft_cd_next_2(char *str, t_minishell *shell, char *home,
+		char **env)
+{
+	int ok;
+
+	ok = 0;
+	if (str[0] == '~')
+	{
+		if (ft_tild(str, shell, home, env) == 0)
+			return ;
+	}
+	ft_cd_next(str, env, ok, home);
+}
+
 void				ft_cd(char *str, char **env, t_minishell *shell)
 {
 	char			*home;
 	int				ok;
 
-	(void)str;
 	home = ft_home(env);
 	ok = 0;
 	if (str == NULL)
@@ -137,5 +122,5 @@ void				ft_cd(char *str, char **env, t_minishell *shell)
 			return ;
 		}
 	}
-	ft_cd_next(str, env, ok, home);
+	ft_cd_next_2(str, shell, home, env);
 }

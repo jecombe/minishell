@@ -38,7 +38,9 @@ FILES = main.c \
 		tools3.c \
 		tools4.c \
 		tools_env.c \
-		tools_env_2.c
+		tools_env_2.c \
+		tild.c \
+		dollar.c
 
 END=\x1b[0m
 BOLD=\x1b[1m
