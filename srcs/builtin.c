@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 14:56:37 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/10 19:20:27 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/14 15:13:47 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,22 +32,6 @@ static void		ft_check_slashn(char **cmd)
 		ok = 0;
 	}
 }
-
-/*static void		ft_print_echo(char **cmd)
-{
-	int o;
-
-	o = 1;
-	ft_print_tab(cmd, 1);
-	while (cmd[o])
-	{
-		if (cmd[o][0] != '$')
-			ft_putstr(cmd[o]);
-		ft_putstr(" ");
-		o++;
-	}
-	ft_putstr("\n");
-}*/
 
 static void		ft_print_echo(char **cmd)
 {
@@ -77,7 +61,6 @@ static void		ft_print_echo(char **cmd)
 	}
 	ft_putstr("\n");
 }
-
 
 static int		ft_buitlin_next(t_minishell *shell)
 {

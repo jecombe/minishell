@@ -67,61 +67,6 @@ BPURPLE=\x1b[45m
 BWHITE=\x1b[47m
 
 
-ASCII_ART=\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysdyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooodddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooodddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyooooooodddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooodddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooooddddddddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooooodddddddddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooooooddddddddddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyooooooooooooooddddddddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooooooooodddddddddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooooooooooddddddddddddddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooooooooooodddddddddddddddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooooooooooooddddddddddddddddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyooooooooooooooooooooddddddddddddddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooooooooooooosymmmddddddddddddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyysoooooooooooooooosyhdddNNNNmmmdddddddddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyysoooooooooooosyyhdddddddNNNNNNNNmmmddddddddddddhyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyysooooooooosyhddddddddddddNNNNNNNNNNNNmmmmddddddddhyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyooooooosyhddddddddddddddddNNNNNNNNNNNNNNNNNmmmdddddhyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyysoooosyhddddddddddddddddddddNNNNNNNNNNNNNNNNNNNNNmmmdddyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyysyhdddddddddddddddddddddddddNNNNNNNNNNNNNNNNNNNNNNNNNmmdyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyhhddddddddddddddddddddddddddNNNNNNNNNNNNNNNNNNNNNNNNNmdhyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyhdddddddddddddddddddddddNNNNNNNNNNNNNNNNNNNNNNmdhyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyysyyyyyyhddddddddddddddddddddNNNNNNNNNNNNNNNNNNNmdyyyyyyhyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyysoossyyyyyhhddddddddddddddddNNNNNNNNNNNNNNNmdhyyyyyyhddhyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyysoooossyyyyyyhdddddddddddddNNNNNNNNNNNNmdhyyyyyyhddddyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyysooooosssyyyyyhhdddddddddNNNNNNNNNmdyyyyyyhddddddhyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyysoooooooossyyyyyhhddddddNNNNNmmhyyyyyyhddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyoooooooooossyyyyyyhdddNNmdhyyyyyyhddddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyysoooooooooooossyyyyyhdyyyyyyhddddddddddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysoooooooooooooossyyyyyyyhddddddddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooooooooossyhdddddddddddddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooooooooooddddddddddddddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyssoooooooooooooodddddddddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooooooodddddddddddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooooooddddddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyooooooooooodddddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooodddddddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooooddddddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooooddddddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooooodddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysoooddddyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysooddhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyysdyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-			$(GREY)				$(END)$(GREEN)yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy$(END)\n\
-
-
-
 
 FOBJS = $(FILES:.c=.o)
 
@@ -133,7 +78,7 @@ all: $(NAME)
 $(NAME): $(LIB) $(OBJS)
 	@gcc -o $(NAME) $(OBJS) $(LIB_DIR)$)$(LIB)
 	@echo "\033[1;35m ==========> COMPILING $(NAME)"
-	@echo "\033[1;32m ==========[ FT_MINISHELL SUCCESSFULLY CREATED ]=========="
+	@echo "\033[1;32m ==========[ MINISHELL SUCCESSFULLY CREATED ]=========="
 	@printf "$(ASCII_ART)"
 
 $(LIB):

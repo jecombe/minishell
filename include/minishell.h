@@ -6,7 +6,7 @@
 /*   By: jecombe <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/26 18:12:05 by jecombe      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/10 18:11:34 by jecombe     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/10 12:08:37 by jecombe     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,10 +24,7 @@
 # include "../libft/libft.h"
 # include <limits.h>
 
-int				g_p;
 char			*g_user;
-int				g_test;
-int				g_ess;
 int				g_leak;
 
 typedef struct	s_minishell
@@ -37,6 +34,7 @@ typedef struct	s_minishell
 	char **env;
 }				t_minishell;
 
+int				g_ess;
 int				my_getenv(char *name, char **env);
 char			**path(t_minishell *shell, char **env);
 void			aff_prompt(t_minishell *shell);
@@ -97,4 +95,6 @@ void			ft_match_env(char *strenv, t_minishell *shell);
 void			ft_search_dollar(t_minishell *shell);
 int				ft_tild(char *str, t_minishell *shell, char *home, char **env);
 char			*ft_home(char **env);
+int				g_test;
+int				g_p;
 #endif
